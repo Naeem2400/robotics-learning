@@ -1,4 +1,22 @@
-# Python for Robotics — Lesson 1: Variables & Decisions
+# 🤖 AI Robotics Bootcamp (2026 Industry Edition)
+
+## Course Progress
+
+| | Module | Lesson notes |
+|---|---|---|
+| ✅ | 1 — Robotics Introduction | — |
+| ✅ | 2 — Robot Components | — |
+| ✅ | 3 — Electronics Basics | — |
+| ✅ | 4 — Python for Robotics (Basic) | below ↓ |
+| 🔄 | 5 — Professional Development Environment | [Lesson 8](lessons/lesson-08-professional-workspace.md) |
+
+**Check your toolchain at any time:** `python3 setup_check.py`
+
+---
+
+# Python for Robotics — Variables & Decisions
+
+*Module 4*
 
 You already know Python. Robotics Python is a different *way of thinking*, not a different language.
 
@@ -275,6 +293,8 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`robot.py`](robot.py) | All lesson examples in one runnable script |
 | [`robot_lesson.ipynb`](robot_lesson.ipynb) | The same lesson as an interactive notebook |
 | [`challenge_solution.py`](challenge_solution.py) | Solution to the battery mini challenge |
+| [`setup_check.py`](setup_check.py) | Checks your robotics toolchain (Lesson 8) |
+| [`lessons/`](lessons/) | Lesson notes from Module 5 onward |
 
 ### How to run
 
