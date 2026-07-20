@@ -194,15 +194,40 @@ Webots should now show as `[x]`.
 
 ## Running Your Own Controller
 
-Once the samples work, try the controller in this repository:
+This repository **is** a Webots project, so there is nothing to copy:
 
-1. In Webots, open a world containing an **e-puck** robot
-   (`File → Open Sample World → robots → gctronic → e-puck`).
-2. Select the robot in the Scene Tree, find its `controller` field, and set it
-   to `first_robot`.
-3. Copy [`controllers/first_robot/`](../controllers/first_robot/) into your
-   Webots project's `controllers/` folder.
-4. Press **Run**.
+```text
+Robotics/
+├── worlds/
+│   └── first_robot.wbt          ← the virtual world
+└── controllers/
+    └── first_robot/
+        └── first_robot.py       ← the robot's brain
+```
+
+Just open the world and press Run:
+
+```bash
+open -a Webots worlds/first_robot.wbt
+```
+
+The world already has the e-puck's `controller` field set to `first_robot`,
+so Webots finds the Python file automatically.
+
+> **Note on Webots conventions:** a controller must live in a folder whose
+> name matches the Python file exactly —
+> `controllers/first_robot/first_robot.py`. If the names differ, Webots will
+> not find it. The same applies to the `worlds/` and `controllers/` folder
+> names: Webots looks for those exact names at the project root.
+
+### First-run notes on macOS
+
+- **"System below the minimal requirements"** — expected on Apple Silicon.
+  Webots only recognises discrete NVIDIA/AMD cards, so it disables shadows and
+  anti-aliasing. This affects appearance only, never physics or sensors.
+- **Gatekeeper blocks the app** — Cyberbotics does not notarise their macOS
+  builds. Right-click the app in Finder → **Open** → **Open** to approve it
+  once. Double-clicking gives you no Open button.
 
 > **Note on Webots conventions:** a controller must live in a folder whose
 > name matches the Python file exactly —
