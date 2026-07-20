@@ -8,7 +8,7 @@
 | ✅ | 2 — Robot Components | — |
 | ✅ | 3 — Electronics Basics | — |
 | ✅ | 4 — Python for Robotics (Basic) | below ↓ |
-| 🔄 | 5 — Professional Development Environment | [Lesson 8](lessons/lesson-08-professional-workspace.md) |
+| 🔄 | 5 — Professional Development Environment | [Lesson 8 — Workspace](lessons/lesson-08-professional-workspace.md) · [Lesson 9 — Simulation](lessons/lesson-09-robot-simulation.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -295,6 +295,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`challenge_solution.py`](challenge_solution.py) | Solution to the battery mini challenge |
 | [`setup_check.py`](setup_check.py) | Checks your robotics toolchain (Lesson 8) |
 | [`lessons/`](lessons/) | Lesson notes from Module 5 onward |
+| [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 
 ### How to run
 
