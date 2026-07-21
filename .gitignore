@@ -2,13 +2,16 @@ __pycache__/
 *.pyc
 .DS_Store
 
-# Webots per-world editor state and thumbnails
+# Webots editor state and thumbnails
 worlds/.*.wbproj
 worlds/.*.jpg
 
 # Generated output
 output_*.png
 output/
+
+# Camera footage - never commit
+captures/
 
 # Virtual environment
 .venv/
