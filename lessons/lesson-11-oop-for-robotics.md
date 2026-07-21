@@ -1,6 +1,6 @@
 # Lesson 11 — Object-Oriented Programming (OOP) for Robotics
 
-**Module 6 — Robot Programming Foundations**
+**Module 5 — Development Environment & Programming Foundations**
 
 > This is the most important programming lesson in the course.
 
