@@ -23,7 +23,7 @@
 | ✅ | 14 — Autonomous Robotics | [L27 — SLAM](lessons/lesson-27-slam.md) |
 | ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
 | 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) · [L30 — OpenCV Practical](lessons/lesson-30-opencv-practical.md) · [L31 — Image Processing](lessons/lesson-31-image-processing.md) · [L32 — Face Detection](lessons/lesson-32-face-detection.md) |
-| 🔄 | 17 — AI Vision | [L36 — Tracking & Following](lessons/lesson-36-object-tracking-following.md) |
+| 🔄 | 17 — AI Vision | [L36 — Tracking & Following](lessons/lesson-36-object-tracking-following.md) · [L37 — Pose Estimation](lessons/lesson-37-pose-estimation.md) |
 
 ## Live Object Detection
 
@@ -340,6 +340,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`face_detection.py`](face_detection.py) | Haar cascade face detection, live or single-frame (Lesson 32) |
 | [`yolo_camera.py`](yolo_camera.py) | Live YOLO object detection on the camera (Lessons 34–35) |
 | [`object_follower.py`](object_follower.py) | Tracks an object and decides turn left / right / forward (Lesson 36) |
+| [`pose_estimation.py`](pose_estimation.py) | Skeleton keypoints, raised-hand and fall detection (Lesson 37) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`docs/`](docs/) | Portfolio and content strategy |
 | [`assets/`](assets/) | Demo images and GIFs |
