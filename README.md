@@ -11,7 +11,8 @@
 | ✅ | 5 — Development Environment & Programming Foundations | [L8 — Workspace](lessons/lesson-08-professional-workspace.md) · [L9 — Simulation](lessons/lesson-09-robot-simulation.md) · [L10 — Robot Brain](lessons/lesson-10-robot-brain.md) · [L11 — OOP](lessons/lesson-11-oop-for-robotics.md) |
 | ✅ | 6 — Sensors | [L12 — Sensors](lessons/lesson-12-sensors.md) |
 | ✅ | 7 — Computer Vision | [L13 — Camera](lessons/lesson-13-camera.md) |
-| 🔄 | 8 — OpenCV | [L14 — OpenCV](lessons/lesson-14-opencv.md) · [L15 — How a Robot Sees](lessons/lesson-15-how-a-robot-sees.md) |
+| ✅ | 8 — OpenCV | [L14 — OpenCV](lessons/lesson-14-opencv.md) · [L15 — How a Robot Sees](lessons/lesson-15-how-a-robot-sees.md) |
+| 🔄 | 9 — AI Vision | [L16 — YOLO](lessons/lesson-16-yolo.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -302,6 +303,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`pixels_demo.py`](pixels_demo.py) | Builds an image from raw numbers, saves real PNGs (Lesson 13) |
 | [`image_analyzer.py`](image_analyzer.py) | OpenCV pipeline: resize → gray → blur → edges (Lesson 14) |
 | [`see_like_a_robot.py`](see_like_a_robot.py) | The same image as a picture and as numbers (Lesson 15) |
+| [`detection_demo.py`](detection_demo.py) | Bounding boxes, confidence thresholds, robot decision (Lesson 16) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
