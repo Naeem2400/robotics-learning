@@ -9,6 +9,7 @@ worlds/.*.jpg
 # Generated output
 output_*.png
 output/
+output_processing/
 
 # Camera footage - never commit
 captures/
