@@ -18,7 +18,7 @@
 | ✅ | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
 | ✅ | 13 — Docker | [L20 — Docker](lessons/lesson-20-docker.md) |
 | ✅ | 13 — ROS 2 Practical | [L21 — Choosing Your Setup](lessons/lesson-21-choosing-your-ros2-setup.md) · [L22 — First ROS 2 Program](lessons/lesson-22-first-ros2-program.md) |
-| 🔄 | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) |
+| 🔄 | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) · [L25 — First Robot](lessons/lesson-25-movebot-first-robot.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 

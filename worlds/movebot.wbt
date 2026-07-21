@@ -1,0 +1,39 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
+WorldInfo {
+  info [
+    "AI Robotics Bootcamp - Project 1: MoveBot"
+    "Time-based movement: forward, left turn, forward, stop."
+  ]
+  title "MoveBot"
+  basicTimeStep 32
+}
+Viewpoint {
+  orientation -0.3 -0.13 0.945 4.0
+  position 1.4 1.6 1.3
+  follow "e-puck"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 2 2
+  floorAppearance Parquetry {
+    textureTransform TextureTransform {
+      scale 6 6
+    }
+  }
+  wallHeight 0.08
+}
+E-puck {
+  translation -0.6 -0.6 0
+  rotation 0 0 1 0.785
+  controller "movebot_controller"
+}
