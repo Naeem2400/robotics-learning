@@ -141,14 +141,29 @@ pip install mediapipe "opencv-contrib-python<5"
 > This is the fourth time this course has hit a version conflict. Pinning
 > versions is not bureaucracy; it is what keeps a robotics stack working.
 
-```python
-import mediapipe as mp
-
-pose = mp.solutions.pose.Pose()
-result = pose.process(rgb_frame)
-mp.solutions.drawing_utils.draw_landmarks(
-    frame, result.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
-```
+> ⚠️ **A second trap, found by testing:** MediaPipe **0.10.35 removed the
+> entire `mp.solutions` API** — the one used by virtually every tutorial
+> online. This no longer works:
+>
+> ```python
+> pose = mp.solutions.pose.Pose()      # AttributeError on 0.10.35
+> ```
+>
+> The current interface is the **Tasks API**, which needs a downloaded model
+> file:
+>
+> ```python
+> from mediapipe.tasks import python
+> from mediapipe.tasks.python import vision
+>
+> options = vision.PoseLandmarkerOptions(
+>     base_options=python.BaseOptions(model_asset_path="pose_landmarker.task"))
+> landmarker = vision.PoseLandmarker.create_from_options(options)
+> ```
+>
+> See [Lesson 38](lesson-38-hand-gestures.md) for a full working example of
+> the Tasks API. This is exactly why the YOLO Pose route above is the one this
+> course uses: it needs no extra install and no model file.
 
 ---
 
