@@ -20,7 +20,8 @@
 | ✅ | 13 — ROS 2 Practical | [L21 — Choosing Your Setup](lessons/lesson-21-choosing-your-ros2-setup.md) · [L22 — First ROS 2 Program](lessons/lesson-22-first-ros2-program.md) |
 | ✅ | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) · [L24 — Project & Scene Tree](lessons/lesson-24-webots-project-and-scene-tree.md) · [L25 — First Robot](lessons/lesson-25-movebot-first-robot.md) |
 | ✅ | Project 2 — Obstacle Avoidance | [L26 — Obstacle Avoidance](lessons/lesson-26-obstacle-avoidance.md) |
-| 🔄 | 14 — Autonomous Robotics | [L27 — SLAM](lessons/lesson-27-slam.md) |
+| ✅ | 14 — Autonomous Robotics | [L27 — SLAM](lessons/lesson-27-slam.md) |
+| 🔄 | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -320,6 +321,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`new_project.sh`](new_project.sh) | Scaffolds a professional project structure (Lesson 23) |
 | [`world_inspector.py`](world_inspector.py) | Prints a Webots world's Scene Tree from the text file (Lesson 24) |
 | [`slam_demo.py`](slam_demo.py) | Builds a map from laser scans, with and without position drift (Lesson 27) |
+| [`path_planning_demo.py`](path_planning_demo.py) | Dijkstra vs A* on one map, with cells-examined counts (Lesson 28) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
