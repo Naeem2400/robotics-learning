@@ -1,6 +1,9 @@
 numpy
 matplotlib
-opencv-python
+
+# Must be version 4: OpenCV 5.0 removed CascadeClassifier
+# and ships no Haar cascade files (see Lesson 32).
+opencv-python<5
 
 # Added in later lessons:
 # ultralytics
