@@ -1,6 +1,6 @@
 # Lesson 10 — The Robot's Brain (Decision Making)
 
-**Module 5 — Professional Development Environment**
+**Module 6 — Robot Programming Foundations**
 
 > Today you learn to think like a robot.
 

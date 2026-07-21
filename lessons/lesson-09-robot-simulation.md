@@ -1,6 +1,6 @@
 # Lesson 9 — Robot Simulation
 
-**Module 5 — Professional Development Environment**
+**Module 5 — Development Environment & Simulation**
 
 ---
 
@@ -228,11 +228,6 @@ so Webots finds the Python file automatically.
 - **Gatekeeper blocks the app** — Cyberbotics does not notarise their macOS
   builds. Right-click the app in Finder → **Open** → **Open** to approve it
   once. Double-clicking gives you no Open button.
-
-> **Note on Webots conventions:** a controller must live in a folder whose
-> name matches the Python file exactly —
-> `controllers/first_robot/first_robot.py`. If the names differ, Webots will
-> not find it.
 
 ---
 
