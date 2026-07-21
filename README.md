@@ -15,7 +15,8 @@
 | ✅ | 9 — AI Vision | [L16 — YOLO](lessons/lesson-16-yolo.md) |
 | ✅ | 10 — ROS 2 | [L17 — ROS 2](lessons/lesson-17-ros2.md) |
 | ✅ | 11 — Linux for Robotics | [L18 — Linux](lessons/lesson-18-linux-for-robotics.md) |
-| 🔄 | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
+| ✅ | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
+| 🔄 | 13 — Docker | [L20 — Docker](lessons/lesson-20-docker.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
