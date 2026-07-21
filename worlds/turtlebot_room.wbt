@@ -18,11 +18,10 @@ WorldInfo {
     "A small robot with a 360-degree lidar roams a large furnished room."
   ]
   title "Lesson 10 - Small Robot, Big Room"
-  basicTimeStep 32
 }
 Viewpoint {
-  orientation -0.3 -0.13 0.945 4.0
-  position 7.0 7.8 7.5
+  orientation 0.057153215483883246 -0.024878649424606616 -0.9980553906285262 3.5666286477619704
+  position 3.124711729152649 -3.4655330258749206 1.7467729656828983
 }
 TexturedBackground {
 }
@@ -38,26 +37,35 @@ RectangleArena {
   wallHeight 0.3
 }
 Sofa {
-  translation -4.0 -4.0 0
+  translation -4 -4 0
   rotation 0 0 1 0.7854
 }
 Armchair {
-  translation 4.2 -4.0 0
+  translation 4.2 -4 0
   rotation 0 0 1 2.3562
 }
 Fridge {
-  translation 4.4 4.0 0
+  hidden position_0_0 -4.39054833982766e-05
+  hidden position_0_1 4.39055028927135e-05
+  hidden rotation_1 0 0 -1 4.3905486947003926e-05
+  hidden rotation_2 0 0 1 4.3905507176325515e-05
+  translation 4.4 4 0
   rotation 0 0 1 3.14159
 }
 Cabinet {
+  hidden position_6_0 6.399798787869976e-06
+  hidden translation_7 -1.2735599587774316e-06 -4.0752679009159465e-12 0
+  hidden rotation_7 0 0 1 6.399801531773194e-06
+  hidden position_10_0 -5.440791833954961e-06
+  hidden translation_11 -9.203099387089411e-07 2.5036084316809593e-12 0
+  hidden rotation_11 0 0 -1 5.440781060675363e-06
   translation -4.6 3.5 0
-  rotation 0 0 1 0
 }
 PottedTree {
-  translation 0.0 4.4 0
+  translation 0 4.4 0
 }
 PottedTree {
-  translation -2.5 -2.0 0
+  translation -2.5 -2 0
   name "potted tree(1)"
 }
 CardboardBox {
@@ -75,12 +83,28 @@ CardboardBox {
   size 0.4 0.4 0.3
 }
 CardboardBox {
-  translation -0.4 -3.0 0.15
+  translation -0.4 -3 0.15
   name "cardboard box(3)"
   size 0.4 0.4 0.3
 }
 TurtleBot3Burger {
-  translation -4.0 4.0 0
-  rotation 0 0 1 -0.7
+  hidden position_0_0 2096.8917378111687
+  hidden position_0_1 2101.2636323027746
+  hidden position_0_2 7525.541945758114
+  hidden position2_0_2 0.6406704453062032
+  hidden position3_0_2 4576.441052909784
+  hidden linearVelocity_0 -0.0012213192940611704 -0.1781958147535795 2.672796171027881e-11
+  hidden angularVelocity_0 -9.399857342787753e-10 -1.6487500362125905e-07 -2.243098753964753e-07
+  hidden rotation_8 0 -0.9999999999999999 0 3.2629507868131458
+  hidden linearVelocity_8 -0.0012213241972499197 -0.1781958127012938 -1.293827869662192e-08
+  hidden angularVelocity_8 5.399873171724707 -0.03700982499900338 -5.301010204018919e-05
+  hidden rotation_9 -0.8501802007348926 2.265029573794007e-06 0.5264918102622751 3.141591588478473
+  hidden linearVelocity_9 -0.0012213242021720603 -0.1781958166586309 1.2924714645713048e-08
+  hidden angularVelocity_9 5.3998731719958535 -0.037009823461310445 -5.301114099967766e-05
+  hidden rotation_10 -0.1267182712257066 0.8389017078790878 0.5293263683731596 2.1510728583779244
+  hidden linearVelocity_10 -0.0012213012180408102 -0.17819581483182778 8.334487389380648e-12
+  hidden angularVelocity_10 44.548953707956954 -0.3053253045102279 -5.542252716553173e-13
+  translation -4.818754886837625 -0.0631119217137686 -0.0002477392063247527
+  rotation -0.002325812860331424 -0.00230022086216143 -0.9999946497749495 1.5776553537547053
   controller "turtlebot_brain"
 }
