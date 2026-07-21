@@ -21,7 +21,8 @@
 | ✅ | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) · [L24 — Project & Scene Tree](lessons/lesson-24-webots-project-and-scene-tree.md) · [L25 — First Robot](lessons/lesson-25-movebot-first-robot.md) |
 | ✅ | Project 2 — Obstacle Avoidance | [L26 — Obstacle Avoidance](lessons/lesson-26-obstacle-avoidance.md) |
 | ✅ | 14 — Autonomous Robotics | [L27 — SLAM](lessons/lesson-27-slam.md) |
-| 🔄 | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
+| ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
+| 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -322,6 +323,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`world_inspector.py`](world_inspector.py) | Prints a Webots world's Scene Tree from the text file (Lesson 24) |
 | [`slam_demo.py`](slam_demo.py) | Builds a map from laser scans, with and without position drift (Lesson 27) |
 | [`path_planning_demo.py`](path_planning_demo.py) | Dijkstra vs A* on one map, with cells-examined counts (Lesson 28) |
+| [`traditional_vs_ai_vision.py`](traditional_vs_ai_vision.py) | Watch a hand-written vision rule fail 4 of 5 tests (Lesson 29) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
