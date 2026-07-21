@@ -16,7 +16,8 @@
 | ✅ | 10 — ROS 2 | [L17 — ROS 2](lessons/lesson-17-ros2.md) |
 | ✅ | 11 — Linux for Robotics | [L18 — Linux](lessons/lesson-18-linux-for-robotics.md) |
 | ✅ | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
-| 🔄 | 13 — Docker | [L20 — Docker](lessons/lesson-20-docker.md) |
+| ✅ | 13 — Docker | [L20 — Docker](lessons/lesson-20-docker.md) |
+| 🔄 | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -311,6 +312,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`mini_ros.py`](mini_ros.py) | A working nodes-and-topics pub/sub system (Lesson 17) |
 | [`linux_check.sh`](linux_check.sh) | Which Linux commands work on your machine (Lesson 18) |
 | [`git_practice.sh`](git_practice.sh) | Safe Git sandbox: init → commit → branch → merge (Lesson 19) |
+| [`new_project.sh`](new_project.sh) | Scaffolds a professional project structure (Lesson 23) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |

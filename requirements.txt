@@ -1,0 +1,7 @@
+numpy
+matplotlib
+opencv-python
+
+# Added in later lessons:
+# ultralytics
+# jupyter
