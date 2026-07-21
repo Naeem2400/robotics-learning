@@ -1,6 +1,6 @@
 # Lesson 9 — Robot Simulation
 
-**Module 5 — Development Environment & Simulation**
+**Module 5 — Development Environment & Programming Foundations**
 
 ---
 

@@ -8,9 +8,9 @@
 | ✅ | 2 — Robot Components | — |
 | ✅ | 3 — Electronics Basics | — |
 | ✅ | 4 — Python for Robotics (Basic) | below ↓ |
-| ✅ | 5 — Development Environment & Simulation | [Lesson 8 — Workspace](lessons/lesson-08-professional-workspace.md) · [Lesson 9 — Simulation](lessons/lesson-09-robot-simulation.md) |
-| 🔄 | 6 — Robot Programming Foundations | [Lesson 10 — Robot Brain](lessons/lesson-10-robot-brain.md) · [Lesson 11 — OOP](lessons/lesson-11-oop-for-robotics.md) |
-| 🔄 | 7 — Sensors & Perception | [Lesson 12 — Sensors](lessons/lesson-12-sensors.md) |
+| ✅ | 5 — Development Environment & Programming Foundations | [L8 — Workspace](lessons/lesson-08-professional-workspace.md) · [L9 — Simulation](lessons/lesson-09-robot-simulation.md) · [L10 — Robot Brain](lessons/lesson-10-robot-brain.md) · [L11 — OOP](lessons/lesson-11-oop-for-robotics.md) |
+| ✅ | 6 — Sensors | [L12 — Sensors](lessons/lesson-12-sensors.md) |
+| 🔄 | 7 — Computer Vision | [L13 — Camera](lessons/lesson-13-camera.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -298,6 +298,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`setup_check.py`](setup_check.py) | Checks your robotics toolchain (Lesson 8) |
 | [`robot_brain.py`](robot_brain.py) | Sense→Think→Act decisions and a state machine (Lesson 10) |
 | [`robot_oop.py`](robot_oop.py) | Classes, objects, and a robot built from parts (Lesson 11) |
+| [`pixels_demo.py`](pixels_demo.py) | Builds an image from raw numbers, saves real PNGs (Lesson 13) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |

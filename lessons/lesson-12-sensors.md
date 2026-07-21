@@ -1,6 +1,6 @@
 # Lesson 12 — Sensors: The Robot's Eyes, Ears, and Skin
 
-**Module 7 — Sensors & Perception**
+**Module 6 — Sensors**
 
 > **Golden rule:** Without sensors, a robot is just a machine. With sensors,
 > it becomes aware of the world.
