@@ -1,6 +1,6 @@
 # Lesson 8 — The Professional Robotics Workspace
 
-**Module 5 — Professional Development Environment**
+**Module 5 — Development Environment & Simulation**
 
 ---
 
