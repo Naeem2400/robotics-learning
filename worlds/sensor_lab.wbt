@@ -1,0 +1,52 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/plants/protos/PottedTree.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
+
+WorldInfo {
+  info [
+    "AI Robotics Bootcamp - Lesson 12"
+    "Sensor lab: the robot turns in place and reports what it senses."
+  ]
+  title "Lesson 12 - Sensor Lab"
+  basicTimeStep 32
+}
+Viewpoint {
+  orientation -0.32 -0.14 0.94 4.0
+  position 3.0 3.4 2.8
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 4 4
+  floorAppearance Parquetry {
+    textureTransform TextureTransform {
+      scale 6 6
+    }
+  }
+  wallHeight 0.3
+}
+CardboardBox {
+  translation 0.9 0.0 0.15
+  size 0.4 0.4 0.3
+}
+CardboardBox {
+  translation -1.4 0.9 0.15
+  name "cardboard box(1)"
+  size 0.4 0.4 0.3
+}
+PottedTree {
+  translation 0.2 -1.5 0
+}
+TurtleBot3Burger {
+  translation 0 0 0
+  rotation 0 0 1 0
+  controller "sensor_explorer"
+}

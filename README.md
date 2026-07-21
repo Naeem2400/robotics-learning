@@ -10,7 +10,7 @@
 | ✅ | 4 — Python for Robotics (Basic) | below ↓ |
 | ✅ | 5 — Development Environment & Simulation | [Lesson 8 — Workspace](lessons/lesson-08-professional-workspace.md) · [Lesson 9 — Simulation](lessons/lesson-09-robot-simulation.md) |
 | 🔄 | 6 — Robot Programming Foundations | [Lesson 10 — Robot Brain](lessons/lesson-10-robot-brain.md) · [Lesson 11 — OOP](lessons/lesson-11-oop-for-robotics.md) |
-| ⬜ | 7 — Sensors & Perception | next |
+| 🔄 | 7 — Sensors & Perception | [Lesson 12 — Sensors](lessons/lesson-12-sensors.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
