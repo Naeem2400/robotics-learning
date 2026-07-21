@@ -18,15 +18,28 @@ from controller import Robot
 
 MAX_SPEED = 6.28   # e-puck maximum wheel speed, in radians per second
 
-# The movement plan: (label, duration in seconds, left speed, right speed)
+# One movement is: (label, duration in seconds, left speed, right speed).
 # Speeds are a fraction of MAX_SPEED, so 0.5 means half speed.
-PLAN = [
-    ("Forward",   3.0,  0.5,  0.5),
-    ("Stop",      1.0,  0.0,  0.0),
-    ("Turn left", 1.5, -0.3,  0.3),   # wheels spin opposite ways -> rotate
-    ("Forward",   3.0,  0.5,  0.5),
-    ("Stop",      0.0,  0.0,  0.0),   # final resting state
+#
+# How the two wheels make each move:
+#   both positive        -> Forward
+#   both negative        -> Backward
+#   left -, right +       -> Turn left  (spins counter-clockwise in place)
+#   left +, right -       -> Turn right (spins clockwise in place)
+CYCLE = [
+    ("Forward",    4.0,  0.5,  0.5),
+    ("Stop",       0.5,  0.0,  0.0),
+    ("Backward",   4.0, -0.5, -0.5),
+    ("Stop",       0.5,  0.0,  0.0),
+    ("Turn left",  3.0, -0.3,  0.3),
+    ("Stop",       0.5,  0.0,  0.0),
+    ("Turn right", 3.0,  0.3, -0.3),
+    ("Stop",       0.5,  0.0,  0.0),
 ]
+
+# One CYCLE is 16 seconds. Repeat it so the robot keeps moving for ~1 minute.
+REPEATS = 4
+PLAN = CYCLE * REPEATS + [("Stop", 0.0, 0.0, 0.0)]  # rest at the end
 
 
 def setup_motors(robot):
