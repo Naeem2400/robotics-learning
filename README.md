@@ -17,6 +17,7 @@
 | ✅ | 11 — Linux for Robotics | [L18 — Linux](lessons/lesson-18-linux-for-robotics.md) |
 | ✅ | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
 | ✅ | 13 — Docker | [L20 — Docker](lessons/lesson-20-docker.md) |
+| ✅ | 13 — ROS 2 Practical | [L21 — Choosing Your Setup](lessons/lesson-21-choosing-your-ros2-setup.md) · [L22 — First ROS 2 Program](lessons/lesson-22-first-ros2-program.md) |
 | 🔄 | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
@@ -312,6 +313,8 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`mini_ros.py`](mini_ros.py) | A working nodes-and-topics pub/sub system (Lesson 17) |
 | [`linux_check.sh`](linux_check.sh) | Which Linux commands work on your machine (Lesson 18) |
 | [`git_practice.sh`](git_practice.sh) | Safe Git sandbox: init → commit → branch → merge (Lesson 19) |
+| [`ros2_style_demo.py`](ros2_style_demo.py) | Real ROS 2 node code, runnable without ROS 2 (Lesson 22) |
+| [`mini_rclpy.py`](mini_rclpy.py) | A ~100-line stand-in for ROS 2's rclpy (Lesson 22) |
 | [`new_project.sh`](new_project.sh) | Scaffolds a professional project structure (Lesson 23) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
