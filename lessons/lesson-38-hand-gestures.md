@@ -161,11 +161,6 @@ helper** — `hand_gestures.py` draws the skeleton itself.
 > useful habit it can teach you: *test the library you actually have installed,
 > not the one the tutorial was written against.*
 
-> ⚠️ **The `<5` is required.** Plain `pip install mediapipe` pulls OpenCV 5,
-> which removes `CascadeClassifier` and **breaks Lesson 32's face detection**.
-> This is the fourth version conflict in this course — it is why
-> `requirements.txt` pins versions.
-
 ### Two details in the code worth copying
 
 **1. The image is mirrored** (`cv2.flip(frame, 1)`). Without it, moving your
