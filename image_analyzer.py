@@ -18,8 +18,21 @@ Usage:
 import os
 import sys
 
-import cv2
-import numpy as np
+try:
+    import cv2
+    import numpy as np
+except ImportError:
+    print("OpenCV is not installed in this environment.\n")
+    print("Set it up with:")
+    print("    python3.13 -m venv .venv")
+    print("    source .venv/bin/activate")
+    print("    pip install opencv-python\n")
+    print("Then run this script again with the venv active.\n")
+    print("No OpenCV yet? These lessons need no installation at all:")
+    print("    python3 see_like_a_robot.py    (Lesson 15)")
+    print("    python3 detection_demo.py      (Lesson 16)")
+    print("    python3 pixels_demo.py         (Lesson 13)")
+    sys.exit(1)
 
 OUTPUT_DIR = "output"
 RESIZE_TO = (640, 480)
