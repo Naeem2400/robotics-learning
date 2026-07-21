@@ -18,7 +18,8 @@
 | ✅ | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
 | ✅ | 13 — Docker | [L20 — Docker](lessons/lesson-20-docker.md) |
 | ✅ | 13 — ROS 2 Practical | [L21 — Choosing Your Setup](lessons/lesson-21-choosing-your-ros2-setup.md) · [L22 — First ROS 2 Program](lessons/lesson-22-first-ros2-program.md) |
-| 🔄 | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) · [L25 — First Robot](lessons/lesson-25-movebot-first-robot.md) |
+| ✅ | Project 1 — MoveBot | [L23 — Dev Environment](lessons/lesson-23-dev-environment.md) · [L24 — Project & Scene Tree](lessons/lesson-24-webots-project-and-scene-tree.md) · [L25 — First Robot](lessons/lesson-25-movebot-first-robot.md) |
+| 🔄 | Project 2 — Obstacle Avoidance | [L26 — Obstacle Avoidance](lessons/lesson-26-obstacle-avoidance.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -316,6 +317,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`ros2_style_demo.py`](ros2_style_demo.py) | Real ROS 2 node code, runnable without ROS 2 (Lesson 22) |
 | [`mini_rclpy.py`](mini_rclpy.py) | A ~100-line stand-in for ROS 2's rclpy (Lesson 22) |
 | [`new_project.sh`](new_project.sh) | Scaffolds a professional project structure (Lesson 23) |
+| [`world_inspector.py`](world_inspector.py) | Prints a Webots world's Scene Tree from the text file (Lesson 24) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
