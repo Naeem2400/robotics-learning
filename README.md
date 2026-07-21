@@ -8,7 +8,7 @@
 | ✅ | 2 — Robot Components | — |
 | ✅ | 3 — Electronics Basics | — |
 | ✅ | 4 — Python for Robotics (Basic) | below ↓ |
-| 🔄 | 5 — Professional Development Environment | [Lesson 8 — Workspace](lessons/lesson-08-professional-workspace.md) · [Lesson 9 — Simulation](lessons/lesson-09-robot-simulation.md) · [Lesson 10 — Robot Brain](lessons/lesson-10-robot-brain.md) |
+| 🔄 | 5 — Professional Development Environment | [Lesson 8 — Workspace](lessons/lesson-08-professional-workspace.md) · [Lesson 9 — Simulation](lessons/lesson-09-robot-simulation.md) · [Lesson 10 — Robot Brain](lessons/lesson-10-robot-brain.md) · [Lesson 11 — OOP](lessons/lesson-11-oop-for-robotics.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -295,6 +295,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`challenge_solution.py`](challenge_solution.py) | Solution to the battery mini challenge |
 | [`setup_check.py`](setup_check.py) | Checks your robotics toolchain (Lesson 8) |
 | [`robot_brain.py`](robot_brain.py) | Sense→Think→Act decisions and a state machine (Lesson 10) |
+| [`robot_oop.py`](robot_oop.py) | Classes, objects, and a robot built from parts (Lesson 11) |
 | [`lessons/`](lessons/) | Lesson notes from Module 5 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
