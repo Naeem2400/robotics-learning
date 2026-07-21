@@ -330,6 +330,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`image_processing_demo.py`](image_processing_demo.py) | Every core operation, plus BGR vs HSV under changing light (Lesson 31) |
 | [`face_detection.py`](face_detection.py) | Haar cascade face detection, live or single-frame (Lesson 32) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
+| [`docs/`](docs/) | Portfolio and content strategy |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
 
