@@ -76,7 +76,10 @@ def open_camera():
             if ok and frame is not None:
                 return camera
             camera.release()
-    print("No working camera. Check System Settings > Privacy & Security > Camera")
+    print("No camera frames. macOS grants camera permission PER APP -\n"
+          "  try running from the terminal inside VS Code, or enable your\n"
+          "  terminal in System Settings > Privacy & Security > Camera\n"
+          "  and fully quit (Cmd+Q) and reopen it.")
     return None
 
 

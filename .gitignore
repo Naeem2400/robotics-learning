@@ -8,11 +8,18 @@ worlds/.*.jpg
 
 # Generated output
 output_*.png
+output_*.jpg
 output/
 output_processing/
 
+# Video working files (large) - the exported GIF lives in assets/
+video_out/
+
 # Camera footage - never commit
 captures/
+
+# YOLO model weights (downloaded automatically on first run)
+*.pt
 
 # Virtual environment
 .venv/
