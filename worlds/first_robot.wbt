@@ -13,8 +13,8 @@ WorldInfo {
   title "Lesson 9 - First Robot"
 }
 Viewpoint {
-  orientation -0.35 -0.15 0.92 3.9
-  position 0.85 0.55 0.75
+  orientation 0.07484658439749112 0.05315376717991768 0.9957774178191693 4.352534845530403
+  position -16.95075707350127 -24.520723663547507 -4.637375489308694
   follow "e-puck"
 }
 TexturedBackground {
@@ -22,6 +22,7 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 RectangleArena {
+  translation 0 0 -0.05
   floorSize 2 2
   floorAppearance PBRAppearance {
     baseColor 0.2 0.45 0.55
@@ -31,7 +32,11 @@ RectangleArena {
   wallHeight 0.08
 }
 E-puck {
-  translation -0.4 -0.3 0
-  rotation 0 0 1 0.9
+  hidden position_0_0 -4.806264799179379e-05
+  hidden position_0_1 0.0001796900464648607
+  hidden rotation_1 0 -0.9999999999999999 0 4.80626461486446e-05
+  hidden rotation_2 0 1 0 0.00017969004763257338
+  translation -0.39961791514017625 -0.3008401658857015 -0.05006396140606077
+  rotation 0.0001452184391989294 -0.00016397755044698836 0.9999999760114836 1.4495849614280918
   controller "first_robot"
 }

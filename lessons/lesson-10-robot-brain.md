@@ -215,11 +215,81 @@ in [`robot_brain.py`](../robot_brain.py).
 
 ---
 
+## Running the Brain on a Real Simulated Robot
+
+The terminal version uses numbers you type in. The simulation version reads
+**real sensors** and drives **real motors** — the same brain, brought to life.
+
+```bash
+open -a Webots worlds/turtlebot_room.wbt   # then press Run
+```
+
+A small TurtleBot3 with a 360° lidar explores a large furnished room, turning
+away from the sofa, fridge, cabinet, plants, and boxes. Its brain is
+[`controllers/turtlebot_brain/turtlebot_brain.py`](../controllers/turtlebot_brain/turtlebot_brain.py),
+a state machine with three states:
+
+| State | Behaviour |
+|---|---|
+| `FORWARD` | Drive ahead until something is within 0.4 m |
+| `TURN` | Rotate in place toward the more open side until the way is clear |
+| `BACK` | If wedged, reverse and try turning the other way |
+
+That `BACK` state matters: without an escape behaviour, any obstacle-avoiding
+robot will eventually trap itself in a corner.
+
+---
+
+## ⚡ Two Real Problems We Hit (and what they teach)
+
+These are not bugs we invented for the lesson — we hit them while building it.
+
+### 1. The robot drove under a table and got stuck
+
+A 2D lidar scans at **one fixed height**. On our first robot it sat about
+30 cm off the floor, but a tabletop is ~74 cm high on thin legs:
+
+```text
+        ___________________  <- tabletop (the robot's BODY hits this)
+       |                   |
+   ····|···················|····  <- lidar beams scan here and see a GAP
+      leg                 leg
+```
+
+The sensor honestly reported "clear" — it was looking *underneath* the
+obstacle. The robot then wedged its body on something its eyes never saw.
+
+**The lesson:** one sensor has blind spots. This is exactly why real
+self-driving cars and warehouse robots combine cameras, radar, *and* lidar —
+each covers what the others miss. Our fix was to use obstacles that reach the
+floor, which the low lidar can actually see.
+
+### 2. A big robot could not navigate a small room
+
+Our first robot was human-sized with an arm sticking out. In a small room full
+of furniture it had no room to manoeuvre, and its arm clipped objects that were
+outside the sensor's forward cone. Swapping to a small robot with a smooth
+round body and a 360° sensor fixed it instantly.
+
+**The lesson:** the robot's **body shape and size** are part of the navigation
+problem, not just the software. A wide robot needs wider gaps, larger safety
+margins, and sensors that cover its whole footprint. Engineers call this the
+robot's *footprint* and it is a real parameter in ROS 2 navigation.
+
+> Both versions are kept in this repository so you can compare them: the large
+> [TIAGo](../worlds/tiago_room.wbt) and the small
+> [TurtleBot3](../worlds/turtlebot_room.wbt) run *the same brain* with very
+> different results.
+
+---
+
 ## Homework
 
 1. Create `robot_brain.py`.
 2. Test different `battery` and `distance` values.
 3. Add a new rule: if `human_detected = True`, the robot stops.
+4. Run the simulation and change `TURN_DISTANCE` in the controller. What
+   happens if it is very small (0.15) or very large (1.5)?
 
 ---
 

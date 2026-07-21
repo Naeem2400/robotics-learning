@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Webots per-world editor state and thumbnails
+worlds/.*.wbproj
+worlds/.*.jpg
