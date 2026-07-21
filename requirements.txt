@@ -5,6 +5,10 @@ matplotlib
 # and ships no Haar cascade files (see Lesson 32).
 opencv-python<5
 
+# Lesson 38 (hand tracking). The pin matters - see Lesson 38.
+# mediapipe
+# opencv-contrib-python<5
+
 # Added in later lessons:
 # ultralytics
 # jupyter
