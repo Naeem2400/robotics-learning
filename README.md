@@ -24,6 +24,14 @@
 | ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
 | 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) · [L30 — OpenCV Practical](lessons/lesson-30-opencv-practical.md) · [L31 — Image Processing](lessons/lesson-31-image-processing.md) · [L32 — Face Detection](lessons/lesson-32-face-detection.md) |
 
+## Live Object Detection
+
+![YOLO object detection running on a MacBook Air M1](assets/yolo-detection-demo.gif)
+
+*YOLO11 detecting 8 objects at once — bottles, phones, a potted plant, a vase and the table — at ~15 fps on a MacBook Air M1, with no GPU. Run it yourself with [`yolo_camera.py`](yolo_camera.py).*
+
+---
+
 **Check your toolchain at any time:** `python3 setup_check.py`
 
 **OpenCV lessons** need the virtual environment: `source .venv/bin/activate` (see [Lesson 14](lessons/lesson-14-opencv.md))
@@ -329,8 +337,10 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`camera_app.py`](camera_app.py) | Live camera with photo/video keyboard control (Lesson 30) |
 | [`image_processing_demo.py`](image_processing_demo.py) | Every core operation, plus BGR vs HSV under changing light (Lesson 31) |
 | [`face_detection.py`](face_detection.py) | Haar cascade face detection, live or single-frame (Lesson 32) |
+| [`yolo_camera.py`](yolo_camera.py) | Live YOLO object detection on the camera (Lessons 34–35) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`docs/`](docs/) | Portfolio and content strategy |
+| [`assets/`](assets/) | Demo images and GIFs |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
 
