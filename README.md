@@ -14,7 +14,8 @@
 | ✅ | 8 — OpenCV | [L14 — OpenCV](lessons/lesson-14-opencv.md) · [L15 — How a Robot Sees](lessons/lesson-15-how-a-robot-sees.md) |
 | ✅ | 9 — AI Vision | [L16 — YOLO](lessons/lesson-16-yolo.md) |
 | ✅ | 10 — ROS 2 | [L17 — ROS 2](lessons/lesson-17-ros2.md) |
-| 🔄 | 11 — Linux for Robotics | [L18 — Linux](lessons/lesson-18-linux-for-robotics.md) |
+| ✅ | 11 — Linux for Robotics | [L18 — Linux](lessons/lesson-18-linux-for-robotics.md) |
+| 🔄 | 12 — Software Engineering | [L19 — Git & GitHub](lessons/lesson-19-git-and-github.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
 
@@ -308,6 +309,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`detection_demo.py`](detection_demo.py) | Bounding boxes, confidence thresholds, robot decision (Lesson 16) |
 | [`mini_ros.py`](mini_ros.py) | A working nodes-and-topics pub/sub system (Lesson 17) |
 | [`linux_check.sh`](linux_check.sh) | Which Linux commands work on your machine (Lesson 18) |
+| [`git_practice.sh`](git_practice.sh) | Safe Git sandbox: init → commit → branch → merge (Lesson 19) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
