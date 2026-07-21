@@ -22,9 +22,11 @@
 | ✅ | Project 2 — Obstacle Avoidance | [L26 — Obstacle Avoidance](lessons/lesson-26-obstacle-avoidance.md) |
 | ✅ | 14 — Autonomous Robotics | [L27 — SLAM](lessons/lesson-27-slam.md) |
 | ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
-| 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) |
+| 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) · [L30 — OpenCV Practical](lessons/lesson-30-opencv-practical.md) |
 
 **Check your toolchain at any time:** `python3 setup_check.py`
+
+**OpenCV lessons** need the virtual environment: `source .venv/bin/activate` (see [Lesson 14](lessons/lesson-14-opencv.md))
 
 ---
 
@@ -324,6 +326,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`slam_demo.py`](slam_demo.py) | Builds a map from laser scans, with and without position drift (Lesson 27) |
 | [`path_planning_demo.py`](path_planning_demo.py) | Dijkstra vs A* on one map, with cells-examined counts (Lesson 28) |
 | [`traditional_vs_ai_vision.py`](traditional_vs_ai_vision.py) | Watch a hand-written vision rule fail 4 of 5 tests (Lesson 29) |
+| [`camera_app.py`](camera_app.py) | Live camera with photo/video keyboard control (Lesson 30) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |
 | [`worlds/`](worlds/) | Webots simulation worlds — open these and press Run |
