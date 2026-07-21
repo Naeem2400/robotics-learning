@@ -174,6 +174,11 @@ python image_analyzer.py                # uses a generated sample image
 python image_analyzer.py my_photo.jpg   # uses your own photo
 ```
 
+> **⚠️ Status:** this script needs OpenCV. If the install has not
+> succeeded yet it prints setup instructions instead of crashing, and
+> points you at the lessons that need no installation. It has not yet
+> been verified end to end on this machine.
+
 It runs the full pipeline and **saves every step** into `output/` so you can
 open the files and compare them:
 
