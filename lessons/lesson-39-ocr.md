@@ -62,6 +62,36 @@ python ocr_reader.py                  # live camera, press R to read
 [`ocr_reader.py`](../ocr_reader.py) draws a box around each text region with
 its confidence, and — importantly — turns the text into a **decision**.
 
+### Verified output
+
+```text
+  Reading a generated sign that says:
+    EXIT / Room 204 / Paracetamol 500mg / Battery 12V
+
+  6 text region(s):
+      99%  'EXIT'
+     100%  'Room'
+      92%  '204'
+      69%  'Paracetamol 500mg'
+     100%  'Battery'
+      45%  '12v'
+
+  took 1.02s
+  Robot decision: EXIT sign found -> route to the exit
+```
+
+**Read those confidences carefully — they are the lesson.**
+
+- `EXIT` and `Battery` scored 99–100%: short, large, high-contrast words.
+- `Paracetamol 500mg` scored only **69%** — longer text, smaller glyphs.
+- `12V` came back as `'12v'` at **45%**, with the case wrong.
+
+Now recall the medicine example. A system that acts on a 45% read, or that
+cannot reliably distinguish case and digits, **must not be trusted to dispense
+drugs**. Notice also that OCR split "Room 204" into two separate regions — your
+code has to reassemble it. Raw OCR output is messier than tutorials suggest,
+and handling that mess *is* the engineering.
+
 ### Installation — the pin, again
 
 ```bash

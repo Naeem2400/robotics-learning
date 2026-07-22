@@ -26,3 +26,7 @@ captures/
 
 # MediaPipe model files (downloaded on demand)
 models/*.task
+
+# Generated demo output
+output_qr.png
+qr_*.png
