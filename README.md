@@ -31,6 +31,14 @@
 
 *YOLO11 detecting 8 objects at once — bottles, phones, a potted plant, a vase and the table — at ~15 fps on a MacBook Air M1, with no GPU. Run it yourself with [`yolo_camera.py`](yolo_camera.py).*
 
+![OCR reading text from a mug and a bottle label](assets/ocr-reading-demo.gif)
+
+*EasyOCR reading real objects — and getting one wrong. It read the mug
+(`MORNING`, `SUNSHINE`, `COFFEE`) and the bottle label, but returned
+`INTENSETY` for "INTENSITY" at 82% confidence. That is why a robot acting on
+text must cross-check, never trust a single read. Try it with
+[`ocr_reader.py`](ocr_reader.py).*
+
 ---
 
 **Check your toolchain at any time:** `python3 setup_check.py`
