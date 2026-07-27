@@ -16,15 +16,39 @@
 
 ---
 
-## 🔬 Practical — Nothing to Install
+## 📖 QR Code vs Barcode
 
-This is the rare lesson that needs **no new library**. QR encoding, QR
-decoding, and barcode reading are all built into the OpenCV you already have:
+| | Barcode | QR code |
+|---|---|---|
+| Dimensions | **1-D** (vertical lines) | **2-D** (a grid) |
+| Data | ~20 digits | thousands of characters |
+| Scan angle | orientation matters | any direction |
+| Used on | supermarket products | shelves, tickets, robots |
+
+A barcode holds a product *number* you look up in a database. A QR code can
+hold the data itself — a URL, a shelf ID, a robot command.
+
+---
+
+## 🔬 Practical — QR Needs Nothing, Barcodes Need pyzbar
+
+QR reading is built into OpenCV. **Barcode reading is not reliable in OpenCV**
+— its built-in detector failed on a standard EAN-13 even at 300 dpi (verified).
+The proper tool is **pyzbar**, which reads *both* QR codes and barcodes:
+
+```bash
+brew install zbar          # the system library pyzbar wraps (macOS)
+pip install pyzbar
+```
+
+> The script uses pyzbar when present, and falls back to OpenCV's QR-only
+> detector when it is not — so QR always works, and barcodes work once pyzbar
+> is installed.
 
 ```bash
 source .venv/bin/activate
 
-python qr_reader.py --test              # generate codes and read them back
+python qr_reader.py --test              # generate QR codes and read them back
 python qr_reader.py --make SHELF-A204   # save a printable QR code
 python qr_reader.py --image photo.jpg   # read codes in an image
 python qr_reader.py                     # live camera
@@ -33,23 +57,32 @@ python qr_reader.py                     # live camera
 ### Verified output
 
 ```text
-  OpenCV 4.13.0
-  QRCodeDetector : True
-  QRCodeEncoder  : True
-  Barcode        : True
-
-  Encoding, then reading back:
+  QR codes - encode, then read back:
     OK   'SHELF-A204'                  -> 'SHELF-A204'
     OK   'ROOM-101'                    -> 'ROOM-101'
     OK   'DOCK-1'                      -> 'DOCK-1'
     OK   'https://example.com/item/42' -> 'https://example.com/item/42'
+  4/4 QR round trips exact
+```
 
-  4/4 round trips exact
+And a real supermarket barcode, read from an image:
+
+```text
+  /tmp/barcode.png: 1 code(s)
+    [EAN13]  '5901234123457'
+  Robot decision: barcode 5901234123457 (EAN13)
+                  -> look the product up in inventory
 ```
 
 **Every read was character-for-character exact.** Compare that with the OCR
 results from Lesson 39, where `12V` came back as `'12v'` at 45% confidence.
 That difference is the whole point of this lesson.
+
+> **A correction worth noting:** an earlier version of this lesson claimed
+> OpenCV could read barcodes because `cv2.barcode` exists. Testing proved
+> otherwise — the attribute is present but the decoder needs extra
+> super-resolution model files and failed on a clean barcode. *Checking that a
+> feature exists is not the same as checking that it works.*
 
 ---
 
@@ -58,38 +91,37 @@ That difference is the whole point of this lesson.
 The script tests robustness directly rather than repeating folklore:
 
 ```text
-  Robustness, measured on this OpenCV build:
+  QR robustness, measured:
 
-    rotation      : readable at [15, 30, 45] degrees
-    blur          : readable with kernel [5, 9, 15]
-    low light     : readable down to 25% brightness
-    data damage   : survives up to 1.7%
-    corner damage : UNREADABLE (finder pattern destroyed)
+    rotation   : readable at [15, 30, 45] degrees
+    blur       : readable with kernel [5, 9, 15]
+    low light  : readable down to 12% brightness
 ```
 
 | Condition | QR code | OCR |
 |---|---|---|
 | Tilted 45° | ✅ exact | ❌ usually fails |
 | Heavy blur | ✅ exact | ❌ fails |
-| 25% brightness | ✅ exact | ❌ fails |
+| 12% brightness | ✅ exact | ❌ fails |
 | Output correctness | ✅ exact or nothing | ⚠️ *probably* right |
 
 ### The nuance most tutorials get wrong
 
-People say *"QR codes have error correction, so they survive damage."* Our
-measurements show that is **only half true**:
+People say *"QR codes survive heavy damage thanks to error correction."* When I
+tested it, the truth turned out to be **decoder-dependent**: the same damaged
+code that OpenCV's reader gave up on, pyzbar decoded fine — and vice versa on
+other damage. Neither tolerated as much as the marketing implies.
 
-- Damage to the **data area**: tolerated, but only up to about **1.7%** of the
-  image with OpenCV's decoder — far less than the marketing suggests.
-- Damage to a **corner square**: **fatal.** Unreadable immediately.
+The reliable, decoder-independent facts are the ones the robustness table
+measured: QR codes read cheerfully at an angle, blurred, and in dim light.
+Their *damage* tolerance depends on the code's error-correction level (QR codes
+come in L/M/Q/H grades, recovering 7% to 30%) and on which decoder you use — so
+do not rely on a specific number.
 
-Those three corner squares are **finder patterns** — the decoder uses them to
-locate and orient the code. Error correction protects the **data**, not the
-locators. A scuffed corner kills a label that a torn middle would survive.
-
-> **Practical consequence:** when you print QR labels for a robot, protect the
-> corners. Laminate them, or leave a wide margin. That single piece of
-> knowledge prevents a whole class of warehouse failures.
+> **The lesson within the lesson:** I originally wrote a confident "protect the
+> corners or the code dies" rule based on one decoder's behaviour. A second
+> decoder disproved it. **One measurement is an anecdote; a claim needs to hold
+> across conditions before you teach it as a rule.**
 
 ### The most important difference
 
@@ -158,16 +190,16 @@ decides whether the technique is usable at all.
 
 ## ⚠️ Common Mistakes
 
-- **Using `detectAndDecode` instead of `detectAndDecodeMulti`.** The single
-  version silently returns just one code — a real problem on a shelf with
-  several labels in view.
+- **Assuming OpenCV reads barcodes.** `cv2.barcode` exists but does not
+  reliably decode them without extra model files — use **pyzbar** (which reads
+  QR codes too).
+- **Reading only one code when several are visible** — a real problem on a
+  shelf with many labels. pyzbar returns all of them.
 - **Cropping away the quiet zone.**
 - **Low camera resolution.** Like OCR, code reading needs detail; the script
   opens at 1280×720.
-- **Assuming error correction saves damaged corners.** It does not.
-- **Not handling the decoder crash.** OpenCV 4.13 raises a `kmeans` assertion
-  on very dark frames instead of reporting "no code" — `qr_reader.py` catches
-  it. Found by testing at 12% brightness.
+- **Trusting a robustness number from a single decoder.** Different libraries
+  fail on different damage — see the "nuance" section above.
 
 ---
 
@@ -196,9 +228,10 @@ which robotics uses specifically for pose estimation.
 Print a code with `python qr_reader.py --make DOCK-1`, hold it to the camera,
 and watch the decision change to *"charging dock found → align and dock"*.
 
-Then **cover one corner square with your thumb.** It stops reading instantly.
-Now cover a bit of the middle instead — it keeps working. That is finder
-patterns versus error correction, in one experiment.
+Then grab any product with a barcode on it and hold that up — the reader
+returns its number and type (`EAN13`, `UPC-A`, …). Try covering parts of each
+code with your thumb and see how much it tolerates before giving up. That is
+error correction, measured with your own hand.
 
 ---
 

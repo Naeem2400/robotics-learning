@@ -1,14 +1,19 @@
 """
 AI Robotics Bootcamp - Lesson 40
-QR codes and barcodes: how warehouse robots really identify things.
+QR codes and barcodes: how warehouse robots identify products and shelves.
 
-OCR reads text a human wrote. QR codes carry data a machine wrote, with
-error correction built in. Measured here: they read fine at 45 degrees, under
-heavy blur, and at 25% brightness - conditions that defeat OCR - but they
-tolerate only mild physical damage. Where you control the labels, a code
-beats printed text.
+OCR reads text a human wrote and often guesses. A QR code or barcode carries
+data a machine wrote - it decodes exactly, or not at all. Where you control
+the labels, a code beats printed text.
 
-Everything here uses OpenCV only. No extra installation.
+Reader:
+  - pyzbar (preferred) reads BOTH QR codes and 1-D barcodes reliably.
+  - If pyzbar is not installed, we fall back to OpenCV's built-in QR
+    detector - which reads QR codes but NOT barcodes.
+
+Install pyzbar (needed for barcodes):
+    brew install zbar          # the system library pyzbar wraps
+    pip install pyzbar
 
 Usage:
     python qr_reader.py --test              generate codes and read them back
@@ -26,12 +31,16 @@ except ImportError:
     print("OpenCV missing.  pip install 'opencv-python<5'")
     sys.exit(1)
 
+# pyzbar is optional. If missing, QR still works via OpenCV; barcodes do not.
+try:
+    from pyzbar.pyzbar import decode as zbar_decode
+    HAVE_PYZBAR = True
+except ImportError:
+    HAVE_PYZBAR = False
+
 
 def make_qr(text, size=400, border=40):
-    """Create a QR code image containing `text`.
-
-    Useful for printing your own shelf, room or docking labels.
-    """
+    """Create a QR code image containing `text` (for printing labels)."""
     if not hasattr(cv2, "QRCodeEncoder"):
         print("This OpenCV build has no QRCodeEncoder (decoding still works).")
         return None
@@ -47,42 +56,30 @@ def make_qr(text, size=400, border=40):
 
 
 def read_codes(image):
-    """Find every QR code in an image.
+    """Find every QR code and barcode in an image.
 
-    Returns a list of (data, corner_points).
+    Returns a list of (text, kind, corner_points).
+    'kind' is e.g. 'QRCODE' or 'EAN13'.
     """
-    detector = cv2.QRCodeDetector()
+    if HAVE_PYZBAR:
+        found = []
+        for obj in zbar_decode(image):
+            text = obj.data.decode("utf-8", errors="replace")
+            pts = np.array([(p.x, p.y) for p in obj.polygon], dtype=int)
+            found.append((text, obj.type, pts))
+        return found
 
-    # detectAndDecodeMulti finds SEVERAL codes; the single-code version
-    # silently ignores all but one, which bites people in warehouses where
-    # a shelf has many labels in view at once.
+    # --- Fallback: OpenCV QR only (no barcodes) ---
+    detector = cv2.QRCodeDetector()
     try:
         ok, decoded, points, _ = detector.detectAndDecodeMulti(image)
     except cv2.error:
-        # OpenCV 4.13 raises a kmeans assertion on very dark or degenerate
-        # frames instead of simply reporting "no code". Treat it as none.
+        # OpenCV 4.13 raises a kmeans assertion on very dark frames.
         return []
     if not ok or points is None:
         return []
-
-    found = []
-    for text, pts in zip(decoded, points):
-        if text:                       # a detected but unreadable code gives ""
-            found.append((text, pts))
-    return found
-
-
-def read_barcodes(image):
-    """Find 1-D barcodes (the striped kind on products)."""
-    if not hasattr(cv2, "barcode"):
-        return []
-
-    detector = cv2.barcode.BarcodeDetector()
-    ok, decoded, types, points = detector.detectAndDecodeWithType(image)
-    if not ok or points is None:
-        return []
-
-    return [(t, ty, p) for t, ty, p in zip(decoded, types, points) if t]
+    return [(t, "QRCODE", np.array(p, dtype=int))
+            for t, p in zip(decoded, points) if t]
 
 
 def annotate(image, codes, colour=(0, 255, 0)):
@@ -90,24 +87,22 @@ def annotate(image, codes, colour=(0, 255, 0)):
     if len(image.shape) == 2:
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
 
-    for text, pts in codes:
+    for text, kind, pts in codes:
         poly = np.array(pts).astype(int).reshape(-1, 2)
         cv2.polylines(image, [poly], True, colour, 3)
         x, y = poly[0]
-        cv2.putText(image, text, (int(x), max(int(y) - 10, 16)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, colour, 2)
+        cv2.putText(image, f"{text} [{kind}]", (int(x), max(int(y) - 10, 16)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, colour, 2)
     return image
 
 
 def robot_decision(codes):
-    """Turn a decoded code into an action.
-
-    The point of this lesson: the code is not the goal, the decision is.
-    """
+    """Turn a decoded code into an action. The code is not the goal - the
+    decision is."""
     if not codes:
         return "no code visible -> keep searching"
 
-    text = codes[0][0]
+    text, kind = codes[0][0], codes[0][1]
 
     if text.upper().startswith("SHELF-"):
         return f"shelf {text[6:]} identified -> navigate to it"
@@ -117,81 +112,70 @@ def robot_decision(codes):
         return f"room {text[5:]} identified -> deliver here"
     if text.startswith("http"):
         return "URL found -> fetch item details"
+    if kind and kind != "QRCODE":
+        return f"barcode {text} ({kind}) -> look the product up in inventory"
     return f"code '{text}' read -> look it up in the database"
 
 
 def self_test():
-    print("=" * 58)
-    print("  QR code self-test  (no installation required)")
-    print("=" * 58)
+    print("=" * 60)
+    print("  QR / barcode self-test")
+    print("=" * 60)
     print(f"  OpenCV {cv2.__version__}")
-    print(f"  QRCodeDetector : {hasattr(cv2, 'QRCodeDetector')}")
-    print(f"  QRCodeEncoder  : {hasattr(cv2, 'QRCodeEncoder')}")
-    print(f"  Barcode        : {hasattr(cv2, 'barcode')}")
+    print(f"  pyzbar available : {HAVE_PYZBAR}"
+          + ("" if HAVE_PYZBAR else "  (barcodes need: brew install zbar && pip install pyzbar)"))
 
     samples = ["SHELF-A204", "ROOM-101", "DOCK-1", "https://example.com/item/42"]
-    print("\n  Encoding, then reading back:\n")
-
+    print("\n  QR codes - encode, then read back:\n")
     passed = 0
     for text in samples:
         img = make_qr(text, size=300)
         if img is None:
             break
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
         codes = read_codes(img)
         got = codes[0][0] if codes else "(nothing)"
         ok = got == text
         passed += ok
         print(f"    {'OK ' if ok else 'FAIL'}  {text!r:32} -> {got!r}")
+    print(f"\n  {passed}/{len(samples)} QR round trips exact")
 
-    print(f"\n  {passed}/{len(samples)} round trips exact\n")
+    # Barcodes need pyzbar. OpenCV's built-in detector does NOT decode them
+    # reliably - this was verified, and is why pyzbar is preferred.
+    print("\n  Barcodes:")
+    if HAVE_PYZBAR:
+        print("    pyzbar reads EAN-13, UPC, Code128 etc. from real barcode")
+        print("    images and the camera. (No barcode is generated here -")
+        print("    point the camera at any product to try it.)")
+    else:
+        print("    pyzbar not installed - barcode reading unavailable.")
+        print("    brew install zbar && pip install pyzbar")
 
-    # Measured robustness. The folklore says "QR codes survive damage";
-    # the truth is more specific, and worth knowing.
-    print("  Robustness, measured on this OpenCV build:\n")
-
-    base = make_qr("SHELF-A204", size=300)
+    # Measured robustness of QR decoding.
+    print("\n  QR robustness, measured:\n")
+    base = cv2.cvtColor(make_qr("SHELF-A204", size=300), cv2.COLOR_GRAY2BGR)
 
     def works(img):
         return bool(read_codes(img))
 
-    # Rotation
     angles = [a for a in (15, 30, 45)
               if works(cv2.warpAffine(base,
                         cv2.getRotationMatrix2D((190, 190), a, 1.0),
-                        (380, 380), borderValue=255))]
-    print(f"    rotation      : readable at {angles} degrees")
+                        (380, 380), borderValue=(255, 255, 255)))]
+    print(f"    rotation   : readable at {angles} degrees")
 
-    # Blur
     blurs = [k for k in (5, 9, 15) if works(cv2.GaussianBlur(base, (k, k), 0))]
-    print(f"    blur          : readable with kernel {blurs}")
+    print(f"    blur       : readable with kernel {blurs}")
 
-    # Low light
     lights = [b for b in (0.5, 0.25, 0.12)
               if works(np.clip(base * b, 0, 255).astype(np.uint8))]
-    print(f"    low light     : readable down to {min(lights):.0%} brightness")
+    print(f"    low light  : readable down to {min(lights):.0%} brightness"
+          if lights else "    low light  : struggled")
 
-    # Damage to the DATA area
-    survived = []
-    for px in (20, 50, 80):
-        d = base.copy()
-        d[150:150 + px, 150:150 + px] = 255
-        if works(d):
-            survived.append(f"{100.0 * px * px / (380 * 380):.1f}%")
-    print(f"    data damage   : survives up to {survived[-1] if survived else 'none'}")
+    print("\n  QR reads at an angle, blurred and in dim light - conditions")
+    print("  that defeat OCR. That is why warehouses use codes, not text.")
 
-    # Damage to a FINDER PATTERN (a corner square)
-    d = base.copy()
-    d[20:90, 20:90] = 255
-    print(f"    corner damage : {'readable' if works(d) else 'UNREADABLE'} "
-          f"(finder pattern destroyed)")
-
-    print("\n  So: excellent against angle, blur and dim light - all the")
-    print("  things that defeat OCR. But only mild damage tolerance, and")
-    print("  destroying a CORNER square kills it outright: error correction")
-    print("  protects the data, not the three locator squares.")
-
-    demo = annotate(make_qr("SHELF-A204", size=300),
-                    read_codes(make_qr("SHELF-A204", size=300)))
+    demo = annotate(base.copy(), read_codes(base))
     cv2.imwrite("output_qr.png", demo)
     print("\n  annotated -> output_qr.png")
     return 0
@@ -215,24 +199,18 @@ def run_image(path):
         return 1
 
     codes = read_codes(image)
-    bars = read_barcodes(image)
-
-    print(f"\n{path}:")
-    print(f"  QR codes : {len(codes)}")
-    for text, _ in codes:
-        print(f"    {text!r}")
-    print(f"  Barcodes : {len(bars)}")
-    for text, kind, _ in bars:
-        print(f"    {text!r} ({kind})")
+    print(f"\n{path}: {len(codes)} code(s)")
+    for text, kind, _ in codes:
+        print(f"    [{kind}]  {text!r}")
 
     cv2.imwrite("output_qr.png", annotate(image.copy(), codes))
-    print(f"\n  annotated -> output_qr.png")
+    print("\n  annotated -> output_qr.png")
     print(f"  Robot decision: {robot_decision(codes)}")
     return 0
 
 
 def open_camera(width=1280, height=720):
-    # Like OCR, code reading needs detail - a small QR at 640x480 is mush.
+    # Code reading needs detail - a small code at 640x480 is mush.
     for index in (0, 1, 2):
         cam = cv2.VideoCapture(index)
         if cam.isOpened():
@@ -268,11 +246,15 @@ def main():
             sys.exit(1)
         sys.exit(run_image(sys.argv[i + 1]))
 
+    if not HAVE_PYZBAR:
+        print("Note: pyzbar not installed, so only QR codes will read, not")
+        print("barcodes.  brew install zbar && pip install pyzbar\n")
+
     cam = open_camera()
     if cam is None:
         sys.exit(1)
 
-    print("\n  Hold a QR code up to the camera. Press Q to quit.\n")
+    print("\n  Hold a QR code or barcode up to the camera. Press Q to quit.\n")
     last, misses = None, 0
 
     while True:
@@ -284,7 +266,7 @@ def main():
             continue
         misses = 0
 
-        # Unlike OCR, this is fast enough to run on EVERY frame.
+        # Fast enough to run on every frame (unlike OCR).
         codes = read_codes(frame)
         display = annotate(frame, codes)
 
