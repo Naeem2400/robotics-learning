@@ -23,7 +23,7 @@
 | ✅ | 14 — Autonomous Robotics | [L27 — SLAM](lessons/lesson-27-slam.md) |
 | ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
 | 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) · [L30 — OpenCV Practical](lessons/lesson-30-opencv-practical.md) · [L31 — Image Processing](lessons/lesson-31-image-processing.md) · [L32 — Face Detection](lessons/lesson-32-face-detection.md) |
-| 🔄 | 17 — AI Vision | [L36 — Tracking & Following](lessons/lesson-36-object-tracking-following.md) · [L37 — Pose Estimation](lessons/lesson-37-pose-estimation.md) · [L38 — Hand Gestures](lessons/lesson-38-hand-gestures.md) · [L39 — OCR](lessons/lesson-39-ocr.md) · [L40 — QR & Barcodes](lessons/lesson-40-qr-barcodes.md) |
+| 🔄 | 17 — AI Vision | [L36 — Tracking & Following](lessons/lesson-36-object-tracking-following.md) · [L37 — Pose Estimation](lessons/lesson-37-pose-estimation.md) · [L38 — Hand Gestures](lessons/lesson-38-hand-gestures.md) · [L39 — OCR](lessons/lesson-39-ocr.md) · [L40 — QR & Barcodes](lessons/lesson-40-qr-barcodes.md) · [L41 — Segmentation](lessons/lesson-41-segmentation.md) |
 
 ## Live Object Detection
 
@@ -352,6 +352,7 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`hand_gestures.py`](hand_gestures.py) | 21 hand landmarks → gesture → robot command (Lesson 38) |
 | [`ocr_reader.py`](ocr_reader.py) | Reads text from images or the camera, then decides (Lesson 39) |
 | [`qr_reader.py`](qr_reader.py) | Generates and reads QR codes and barcodes, no install needed (Lesson 40) |
+| [`segmentation.py`](segmentation.py) | Pixel masks and grasp points, box-fill % vs YOLO (Lesson 41) |
 | [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
 | [`docs/`](docs/) | Portfolio and content strategy |
 | [`assets/`](assets/) | Demo images and GIFs |
