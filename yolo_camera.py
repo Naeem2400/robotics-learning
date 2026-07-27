@@ -106,7 +106,21 @@ def detect_image(path):
     return 0
 
 
-def open_camera(width=640, height=480):
+def open_camera(width=640, height=480, source=None):
+    # source can be a camera index (int) or a phone-stream URL (str),
+    # e.g. "http://192.168.1.42:8080/video" from an IP-webcam app.
+    if source is not None:
+        cam = cv2.VideoCapture(source)
+        if cam.isOpened():
+            ok, frame = cam.read()
+            if ok and frame is not None:
+                where = source if isinstance(source, str) else f"index {source}"
+                print(f"Camera ({where}): {frame.shape[1]}x{frame.shape[0]}")
+                return cam
+            cam.release()
+        print(f"Could not open camera source: {source}")
+        return None
+
     for index in (0, 1, 2):
         camera = cv2.VideoCapture(index)
         if camera.isOpened():
@@ -166,8 +180,16 @@ def main():
     else:
         wanted = None
 
+    # Use a phone camera with --cam N (a device index) or --url URL
+    # (an IP-webcam stream). Otherwise the built-in camera.
+    source = None
+    if "--cam" in sys.argv:
+        source = int(sys.argv[sys.argv.index("--cam") + 1])
+    elif "--url" in sys.argv:
+        source = sys.argv[sys.argv.index("--url") + 1]
+
     # 640x480 keeps an 8 GB M1 comfortable.
-    camera = open_camera(640, 480)
+    camera = open_camera(640, 480, source=source)
     if camera is None:
         sys.exit(1)
 

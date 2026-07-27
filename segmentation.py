@@ -14,7 +14,9 @@ the concepts here transfer to it directly.
 Usage:
     python segmentation.py --test           run on a sample image, no camera
     python segmentation.py --image f.jpg    segment an image file
-    python segmentation.py                  live camera
+    python segmentation.py                  live camera (built-in)
+    python segmentation.py --cam 1          use camera device 1 (e.g. iPhone)
+    python segmentation.py --url http://192.168.1.42:8080/video   phone stream
 """
 
 import sys
@@ -144,7 +146,21 @@ def run_image(path):
     return 0
 
 
-def open_camera(width=640, height=480):
+def open_camera(width=640, height=480, source=None):
+    # source can be a camera index (int) or a phone-stream URL (str),
+    # e.g. "http://192.168.1.42:8080/video" from an IP-webcam app.
+    if source is not None:
+        cam = cv2.VideoCapture(source)
+        if cam.isOpened():
+            ok, frame = cam.read()
+            if ok and frame is not None:
+                where = source if isinstance(source, str) else f"index {source}"
+                print(f"Camera ({where}): {frame.shape[1]}x{frame.shape[0]}")
+                return cam
+            cam.release()
+        print(f"Could not open camera source: {source}")
+        return None
+
     for index in (0, 1, 2):
         cam = cv2.VideoCapture(index)
         if cam.isOpened():
@@ -174,7 +190,12 @@ def main():
         sys.exit(run_image(sys.argv[i + 1]))
 
     model = YOLO(MODEL_NAME)
-    cam = open_camera()
+    source = None
+    if "--cam" in sys.argv:
+        source = int(sys.argv[sys.argv.index("--cam") + 1])
+    elif "--url" in sys.argv:
+        source = sys.argv[sys.argv.index("--url") + 1]
+    cam = open_camera(source=source)
     if cam is None:
         sys.exit(1)
 
