@@ -19,3 +19,7 @@ opencv-python<5
 # Added in later lessons:
 # ultralytics
 # jupyter
+
+# Lesson 43 live depth (--live): monocular MiDaS model
+# torch  (already via ultralytics)
+# timm

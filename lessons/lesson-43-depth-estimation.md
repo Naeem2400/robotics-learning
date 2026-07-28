@@ -115,9 +115,33 @@ is a straightforward projection once you know the camera's optics.
   large download. For safety-critical grasping, a real depth sensor is trusted
   over an estimate.
 
-> This lesson uses **stereo** for the practical because it needs no model
-> download and the maths is transparent. Monocular AI depth is a great next
-> experiment when you have the bandwidth for the model.
+> This lesson uses **stereo** for the maths-transparent practical. But stereo
+> needs *two* cameras, so it cannot run on a live single-camera feed — see the
+> live mode below for that.
+
+---
+
+## 🎥 Live Depth From ONE Camera
+
+Stereo needs two cameras. Your laptop or phone has one — so live depth uses a
+**monocular AI model** (MiDaS) that estimates depth from a single frame:
+
+```bash
+python depth_estimation.py --live                        # laptop camera
+python depth_estimation.py --live --url http://IP:8080/video   # phone camera
+```
+
+It shows the camera feed beside a live depth map (warm = near, cool = far).
+Verified on this MacBook: **57 fps** using the M1 GPU (MPS) — genuinely
+real-time. Pointed at a wall with two doorways, the model correctly rendered
+the near wall warm and the distant door openings cool: it inferred 3-D from a
+flat image.
+
+> ⚠️ **Monocular depth is *relative*, not calibrated.** It tells you *this is
+> nearer than that*, but not "42 cm" — the absolute scale is a guess. Wonderful
+> to see and to film; but for an actual robot grasp, a stereo or RGB-D sensor
+> gives the trustworthy distance. First run downloads the model (~40 MB) and
+> needs `pip install timm`.
 
 ---
 

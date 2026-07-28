@@ -10,9 +10,17 @@ shift (the "disparity") converts directly to distance.
 This needs no AI model and no download beyond a sample stereo pair. The AI
 approach (Depth Anything V2) is noted at the bottom - it is a large download.
 
+Live depth from a SINGLE camera needs a different method: stereo compares two
+cameras, but one camera cannot. So --live uses a monocular AI model (MiDaS)
+that estimates depth from one frame. It gives RELATIVE depth (near vs far),
+not calibrated metres - great to see and to film, but a stereo/RGB-D sensor
+is what you trust for a real grasp.
+
 Usage:
     python depth_estimation.py --test              stereo on a sample pair
     python depth_estimation.py --pair L.jpg R.jpg  your own rectified pair
+    python depth_estimation.py --live              live AI depth (built-in cam)
+    python depth_estimation.py --live --url http://IP:8080/video   phone camera
 """
 
 import sys
@@ -144,8 +152,113 @@ def run_pair(lpath, rpath):
     return 0
 
 
+def open_camera(source=None, width=640, height=480):
+    if source is not None:
+        cam = cv2.VideoCapture(source)
+        if cam.isOpened():
+            ok, frame = cam.read()
+            if ok and frame is not None:
+                where = source if isinstance(source, str) else f"index {source}"
+                print(f"Camera ({where}): {frame.shape[1]}x{frame.shape[0]}")
+                return cam
+            cam.release()
+        print(f"Could not open camera source: {source}")
+        return None
+    for index in (0, 1, 2):
+        cam = cv2.VideoCapture(index)
+        if cam.isOpened():
+            cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+            cam.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+            ok, frame = cam.read()
+            if ok and frame is not None:
+                print(f"Camera {index}: {frame.shape[1]}x{frame.shape[0]}")
+                return cam
+            cam.release()
+        if index == 0:
+            break
+    print("\nNo camera frames. macOS grants camera permission PER APP - run this")
+    print("from the terminal inside VS Code, or use a phone camera with --url.")
+    return None
+
+
+def live_monocular(source=None):
+    """Live depth from ONE camera, using the MiDaS monocular model."""
+    import time
+    try:
+        import torch
+    except ImportError:
+        print("PyTorch missing.  pip install torch timm")
+        return 1
+
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    print(f"Loading MiDaS depth model on {device} (first run downloads it) ...")
+
+    # MiDaS pulls its backbone from a NESTED repo whose load does not carry
+    # trust_repo=True, so torch.hub stops to ask an interactive "do you trust
+    # this repo?" question - which hangs with no terminal. We are deliberately
+    # loading MiDaS, so disable that check for this process.
+    import torch.hub
+    torch.hub._check_repo_is_trusted = lambda *a, **k: None
+
+    midas = torch.hub.load("intel-isl/MiDaS", "MiDaS_small", trust_repo=True)
+    midas.to(device).eval()
+    transform = torch.hub.load("intel-isl/MiDaS", "transforms",
+                               trust_repo=True).small_transform
+
+    cam = open_camera(source)
+    if cam is None:
+        return 1
+
+    print("  Warm = near, cool = far. Press Q to quit.\n")
+    frames, started, misses = 0, time.time(), 0
+
+    while True:
+        ok, frame = cam.read()
+        if not ok or frame is None:
+            misses += 1
+            if misses > 30:
+                break
+            continue
+        misses = 0
+
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        inp = transform(rgb).to(device)
+        with torch.no_grad():
+            pred = midas(inp)
+            pred = torch.nn.functional.interpolate(
+                pred.unsqueeze(1), size=frame.shape[:2],
+                mode="bicubic", align_corners=False).squeeze()
+        depth = pred.cpu().numpy()
+
+        depth_colour = colour_depth(depth - depth.min() + 1e-3)
+        view = np.hstack([frame, depth_colour])
+
+        frames += 1
+        fps = frames / max(time.time() - started, 1e-6)
+        cv2.putText(view, f"{fps:.1f} fps  (relative depth)", (12, 26),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+        cv2.imshow("Monocular Depth (left: camera, right: depth)", view)
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+
+    cam.release()
+    cv2.destroyAllWindows()
+    print(f"\n  Ran at about {fps:.1f} fps.")
+    return 0
+
+
 def main():
     _require_cv2()
+
+    if "--live" in sys.argv:
+        source = None
+        if "--cam" in sys.argv:
+            source = int(sys.argv[sys.argv.index("--cam") + 1])
+        elif "--url" in sys.argv:
+            source = sys.argv[sys.argv.index("--url") + 1]
+        sys.exit(live_monocular(source))
+
     if "--pair" in sys.argv:
         i = sys.argv.index("--pair")
         if i + 2 >= len(sys.argv):
