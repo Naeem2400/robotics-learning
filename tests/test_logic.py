@@ -101,3 +101,44 @@ def test_grayscale_weights_green_highest():
     assert green > red > blue
     assert to_grayscale([[(0, 0, 0)]])[0][0] == 0
     assert to_grayscale([[(255, 255, 255)]])[0][0] == 255
+
+
+# ---------------------------------------------------------------------------
+# Lesson 42 - the from-scratch multi-object tracker
+# ---------------------------------------------------------------------------
+
+def test_tracker_keeps_ids_as_objects_move():
+    from simple_tracker import SimpleTracker
+
+    t = SimpleTracker(distance_threshold=50, max_age=3)
+    seen0 = t.update([(100, 100), (300, 100)])
+    ids0 = sorted(tid for tid, *_ in seen0)
+    # Both objects drift a little.
+    seen1 = t.update([(108, 100), (308, 100)])
+    ids1 = sorted(tid for tid, *_ in seen1)
+    assert ids0 == [1, 2]
+    assert ids1 == [1, 2]          # same IDs, not re-numbered
+
+
+def test_tracker_assigns_new_id_to_new_object():
+    from simple_tracker import SimpleTracker
+
+    t = SimpleTracker(distance_threshold=50, max_age=3)
+    t.update([(100, 100)])                       # id 1
+    seen = t.update([(105, 100), (400, 100)])    # new object at 400 -> id 2
+    ids = sorted(tid for tid, *_ in seen)
+    assert ids == [1, 2]
+
+
+def test_tracker_drops_object_after_max_age():
+    from simple_tracker import SimpleTracker
+
+    t = SimpleTracker(distance_threshold=50, max_age=2)
+    t.update([(100, 100), (300, 100)])           # ids 1, 2
+    # Object 2 disappears; its track is kept alive for max_age frames.
+    t.update([(105, 100)])                       # miss 1 (track 2 age 1)
+    assert 2 in t.active_ids()
+    t.update([(110, 100)])                       # miss 2 (track 2 age 2)
+    assert 2 in t.active_ids()
+    t.update([(115, 100)])                       # miss 3 -> exceeds max_age
+    assert 2 not in t.active_ids()               # lifecycle ended
