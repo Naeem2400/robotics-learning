@@ -31,3 +31,4 @@ models/*.task
 output_qr.png
 qr_*.png
 output_segmentation.jpg
+output_depth.jpg

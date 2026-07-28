@@ -142,3 +142,22 @@ def test_tracker_drops_object_after_max_age():
     assert 2 in t.active_ids()
     t.update([(115, 100)])                       # miss 3 -> exceeds max_age
     assert 2 not in t.active_ids()               # lifecycle ended
+
+
+# ---------------------------------------------------------------------------
+# Lesson 43 - stereo depth math
+# ---------------------------------------------------------------------------
+
+def test_disparity_to_depth_is_inverse():
+    from depth_estimation import disparity_to_depth
+
+    focal, baseline = 700.0, 0.06
+    near = disparity_to_depth(100.0, focal, baseline)   # large disparity
+    far = disparity_to_depth(10.0, focal, baseline)     # small disparity
+
+    # Bigger disparity must mean a closer (smaller) distance.
+    assert near < far
+    # depth = focal * baseline / disparity, exactly.
+    assert abs(near - (focal * baseline / 100.0)) < 1e-9
+    # Zero disparity means infinitely far.
+    assert disparity_to_depth(0.0, focal, baseline) == float("inf")
