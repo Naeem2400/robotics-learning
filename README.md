@@ -39,6 +39,15 @@
 text must cross-check, never trust a single read. Try it with
 [`ocr_reader.py`](ocr_reader.py).*
 
+![Live robot vision dashboard switching between segmentation, multi-object tracking and relative distance](assets/robot-vision-live-demo.gif)
+
+*One live phone camera, four vision modes running on a MacBook Air M1:
+instance segmentation, persistent multi-object tracking (note the IDs staying
+with each object), and relative distance. Inference is 23–37 ms per frame.
+Distance is a relative monocular estimate — a lower number means closer; true
+metres need stereo, a depth camera or lidar. Full 3-minute recording:
+[`assets/robot-vision-live-demo.mp4`](assets/robot-vision-live-demo.mp4).*
+
 ---
 
 **Check your toolchain at any time:** `python3 setup_check.py`
