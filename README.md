@@ -28,20 +28,12 @@
 
 ## Visual SLAM
 
-A robot building a map from a moving camera — Mixkit library corridor,
-free commercial licence, overlay rendered by [`visual_slam.py`](visual_slam.py):
+![Visual SLAM tracking features and building a map](assets/visual-slam-demo.gif)
 
-![Visual SLAM overlay on a library walkthrough](assets/visual-slam-demo.gif)
-
-```bash
-source .venv/bin/activate
-python visual_slam.py --linkedin
-```
-
-The LinkedIn video is [`assets/visual-slam-linkedin.mp4`](assets/visual-slam-linkedin.mp4)
-(1920×1080, H.264). Lesson notes: [markdown](lessons/lesson-44-slam.md) ·
-[PDF](docs/lesson-44-slam.pdf) · [notebook](lesson_44_slam.ipynb).
-Caption: [Reel 7](docs/reel-scripts.md).
+*Visual SLAM on a moving camera — cyan trails are the corners it tracks, the
+right-hand panel is the map growing as it walks the corridor. No LiDAR, no GPS,
+no GPU. Run it yourself with [`visual_slam.py`](visual_slam.py). Full 1920×1080
+recording: [`assets/visual-slam-linkedin.mp4`](assets/visual-slam-linkedin.mp4).*
 
 ---
 
