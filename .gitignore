@@ -23,6 +23,7 @@ captures/
 
 # Virtual environment
 .venv/
+.cache/
 
 # MediaPipe model files (downloaded on demand)
 models/*.task

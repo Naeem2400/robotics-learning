@@ -4,9 +4,9 @@
 
 | | Module | Lesson notes |
 |---|---|---|
-| ✅ | 1 — Robotics Introduction | — |
-| ✅ | 2 — Robot Components | — |
-| ✅ | 3 — Electronics Basics | — |
+| ✅ | 1 — Robotics Introduction | [L1 — What Is a Robot?](lessons/lesson-01-what-is-a-robot.md) |
+| ✅ | 2 — Robot Components | [L2 — Robot Components](lessons/lesson-02-robot-components.md) |
+| ✅ | 3 — Electronics Basics | [L3 — Electronics Basics](lessons/lesson-03-electronics-basics.md) |
 | ✅ | 4 — Python for Robotics (Basic) | below ↓ |
 | ✅ | 5 — Development Environment & Programming Foundations | [L8 — Workspace](lessons/lesson-08-professional-workspace.md) · [L9 — Simulation](lessons/lesson-09-robot-simulation.md) · [L10 — Robot Brain](lessons/lesson-10-robot-brain.md) · [L11 — OOP](lessons/lesson-11-oop-for-robotics.md) |
 | ✅ | 6 — Sensors | [L12 — Sensors](lessons/lesson-12-sensors.md) |
@@ -24,6 +24,26 @@
 | ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
 | 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) · [L30 — OpenCV Practical](lessons/lesson-30-opencv-practical.md) · [L31 — Image Processing](lessons/lesson-31-image-processing.md) · [L32 — Face Detection](lessons/lesson-32-face-detection.md) |
 | 🔄 | 17 — AI Vision | [L36 — Tracking & Following](lessons/lesson-36-object-tracking-following.md) · [L37 — Pose Estimation](lessons/lesson-37-pose-estimation.md) · [L38 — Hand Gestures](lessons/lesson-38-hand-gestures.md) · [L39 — OCR](lessons/lesson-39-ocr.md) · [L40 — QR & Barcodes](lessons/lesson-40-qr-barcodes.md) · [L41 — Segmentation](lessons/lesson-41-segmentation.md) · [L42 — Multi-Object Tracking](lessons/lesson-42-multi-object-tracking.md) · [L43 — Depth Estimation](lessons/lesson-43-depth-estimation.md) |
+| 🔄 | 18 — SLAM & Autonomous Navigation | [L44 — SLAM](lessons/lesson-44-slam.md) · [notebook](lesson_44_slam.ipynb) · [PDF](docs/lesson-44-slam.pdf) |
+
+## Visual SLAM
+
+A robot building a map from a moving camera — Mixkit library corridor,
+free commercial licence, overlay rendered by [`visual_slam.py`](visual_slam.py):
+
+![Visual SLAM overlay on a library walkthrough](assets/visual-slam-demo.gif)
+
+```bash
+source .venv/bin/activate
+python visual_slam.py --linkedin
+```
+
+The LinkedIn video is [`assets/visual-slam-linkedin.mp4`](assets/visual-slam-linkedin.mp4)
+(1920×1080, H.264). Lesson notes: [markdown](lessons/lesson-44-slam.md) ·
+[PDF](docs/lesson-44-slam.pdf) · [notebook](lesson_44_slam.ipynb).
+Caption: [Reel 7](docs/reel-scripts.md).
+
+---
 
 ## Live Object Detection
 
@@ -53,6 +73,68 @@ metres need stereo, a depth camera or lidar. Full 3-minute recording:
 **Check your toolchain at any time:** `python3 setup_check.py`
 
 **OpenCV lessons** need the virtual environment: `source .venv/bin/activate` (see [Lesson 14](lessons/lesson-14-opencv.md))
+
+---
+
+## Mobile Vision API
+
+Test live object detection, instance segmentation, persistent multi-object
+tracking, and relative-distance tracking from a phone camera:
+
+```bash
+source .venv/bin/activate
+python mobile_vision_api.py
+```
+
+Open the printed `Phone:` URL on the mobile device. The page can use a live
+camera in a secure browser context, or the **Take / choose photo** button over
+a normal local HTTP connection. If port 8000 is already occupied, the server
+automatically chooses a free port and includes it in the printed URL. You can
+also choose one explicitly with `python mobile_vision_api.py --port 8080`.
+
+Raw API endpoints:
+
+```text
+GET  /api/health
+POST /api/detect?confidence=0.50
+POST /api/segment?confidence=0.50
+POST /api/track?confidence=0.50
+POST /api/distance?confidence=0.50
+POST /api/track/reset
+```
+
+The inference endpoints accept JPEG/PNG bytes and return an annotated JPEG.
+Machine-readable detections are returned in the URL-encoded
+`X-Robotics-Meta` response header.
+
+`/api/distance` reports a relative monocular estimate for every tracked
+object. Lower values mean closer. It deliberately does not claim metres:
+calibrated physical distance requires stereo vision, a depth camera, lidar,
+or known-object/camera calibration.
+
+The premium React dashboard source is in [`mobile_ui/`](mobile_ui/) and its
+production build is written to `mobile/`. To rebuild it after a UI change:
+
+```bash
+cd mobile_ui
+npm install
+npm run build
+```
+
+Restart `mobile_vision_api.py` after rebuilding, then refresh the phone page.
+
+---
+
+## Native Android Robot Vision
+
+[`robot_vision_app/`](robot_vision_app/) is the installable, on-device version
+of the mobile vision project. It uses the phone camera directly and runs YOLO
+with LiteRT on the phone, avoiding the browser, HTTPS tunnel, and per-frame
+network round trip.
+
+It includes live instance segmentation, detection-backed persistent tracking
+IDs, FPS/inference metrics, camera switching, torch control, and a confidence
+slider. See its [installation guide](robot_vision_app/README.md).
 
 ---
 
@@ -365,7 +447,9 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`multi_object_tracking.py`](multi_object_tracking.py) | Persistent IDs with YOLO+ByteTrack, follow-one-ID (Lesson 42) |
 | [`simple_tracker.py`](simple_tracker.py) | A from-scratch tracker showing the ID lifecycle (Lesson 42) |
 | [`depth_estimation.py`](depth_estimation.py) | Stereo depth: distance from two views, no sensor (Lesson 43) |
-| [`lessons/`](lessons/) | Lesson notes from Lesson 8 onward |
+| [`visual_slam.py`](visual_slam.py) | Visual odometry overlay on a free HD clip, LinkedIn export (Lesson 44) |
+| [`lesson_44_slam.ipynb`](lesson_44_slam.ipynb) | SLAM notebook: odometry, drift, loop closure, then the video |
+| [`lessons/`](lessons/) | Lesson notes for every lesson except 33–35 |
 | [`docs/`](docs/) | Portfolio and content strategy |
 | [`assets/`](assets/) | Demo images and GIFs |
 | [`controllers/`](controllers/) | Webots robot controllers (run from inside Webots) |

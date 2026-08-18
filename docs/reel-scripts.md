@@ -119,6 +119,137 @@ are actually building rather than following along.
 
 ---
 
+## 🎥 Reel 6 — "One Phone Camera, Four AI Vision Modes"
+
+**Length:** 35 seconds · **Status:** ✅ **already rendered** —
+`video_out/robot_vision_reel_vertical.mp4` (1080×1920, silent, 5.0 MB)
+
+**Source:** [`mobile_vision_api.py`](../mobile_vision_api.py), recorded in
+[`assets/robot-vision-live-demo.mp4`](../assets/robot-vision-live-demo.mp4)
+
+### Shot list (as cut)
+
+| Time | Shot | On-screen text |
+|---|---|---|
+| 0–2s | Camera warming up, then the first detection box snaps on | **"THIS IS JUST A PHONE CAMERA"** |
+| 2–4s | `id:12 person 0.83` box tracking an arm | **"UNTIL YOU ADD AI"** · *object detection* |
+| 4–11s | Pink teddy and a bottle filled with pixel masks | **"IT DOESN'T DRAW A BOX"** · *"it draws the shape"* |
+| 11–17s | Three tracked objects, IDs riding along with them | **"THE PERSON IS ALWAYS ID 10"** · *"same ID every time they reappear"* |
+| 17–25s | Distance mode, bottle and toothbrush ranked near/far | **"AND HOW FAR AWAY IT IS"** · *"lower number = closer"* + the relative-not-metres caveat |
+| 25–30s | Teddy bear held close, `23 ms` on the metric card | **"23 ms PER FRAME"** · *"no cloud. no GPU."* |
+| 30–35s | Same shot, steady | **"NEXT: ON THE PHONE ITSELF"** · *"native Android · on-device"* |
+
+The reel is exported **silent** on purpose — add trending audio in the
+Instagram editor, and the first 3 seconds already work muted.
+
+### Caption
+
+```text
+Day 43 of building an AI robot 🤖
+
+One phone camera. Four vision modes, all running live on a MacBook Air M1:
+
+📦 Detection — what it is, and where it is
+🎨 Segmentation — the exact shape, pixel by pixel, not just a box
+🔢 Multi-object tracking — every object keeps its own ID, even after it
+   leaves the frame and comes back
+📏 Relative distance — which object is nearer
+
+23 ms per frame. No cloud. No GPU. No paid API.
+
+One honest note, because I keep seeing this oversold: that distance number
+is RELATIVE, not metres. A single camera physically cannot measure true
+distance — for that you need stereo, a depth camera, or lidar. So the app
+says "3.3 rel", not "3.3 m". Knowing what your sensor CAN'T tell you is
+half of robotics.
+
+Next: running the whole thing on the phone itself — native Android,
+on-device, no server.
+
+Full code on my GitHub 👇 (link in bio)
+
+#Robotics #ComputerVision #YOLO #AI #Python #MachineLearning #RoboticsFemme
+#WomenInSTEM #WomenInTech #DeepLearning #EdgeAI #AIEngineer #CodeNewbie
+#TechReels #BuildInPublic
+```
+
+### Why this hook works
+
+Same negative-then-payoff shape as Reel 1, but the middle now earns the
+watch time: four visibly different modes in 35 seconds means there is a new
+thing on screen every ~6 seconds, and the caveat about relative distance is
+the kind of specific, unglamorous honesty that reads as *engineer* rather
+than *content*.
+
+### Rebuilding it
+
+`ffmpeg` on this machine has **no `drawtext` filter** (built without
+libfreetype), so the text is rendered to transparent PNGs with Pillow and
+composited with `overlay`. Trim windows were chosen to keep the macOS Dock
+and Launchpad out of frame — they are visible in the raw recording around
+160–200s and after 210s.
+
+---
+
+## 🎥 Reel 7 — "How Does a Robot Build a Map?"
+
+**Length:** ~22 seconds · **Source:** [`visual_slam.py`](../visual_slam.py)
+
+The script downloads Mixkit clip #21589 (library corridor, 1920×1080, **free
+commercial licence**, no faces) and burns the overlay in. Do not screen-record
+this one — the mp4 is already the post.
+
+```bash
+source .venv/bin/activate
+python visual_slam.py --linkedin --reel --gif
+```
+
+| Time | Shot | On-screen text |
+|---|---|---|
+| 0–2.5s | Navy title card | **"HOW DOES A ROBOT BUILD A MAP WHEN NOBODY GIVES IT ONE?"** |
+| 2.5–8s | Library corridor, cyan feature trails lighting up | **"VISUAL SLAM"** · features / pose ticking |
+| 8–18s | Split: camera left, growing bird's-eye map right | **"MAPPING: drawing the world"** · **"LOCALIZATION: estimating this pose"** |
+| 18–22s | Navy closer | **"THE ROBOT IS SIMULTANEOUSLY LEARNING THE WORLD AND FINDING ITSELF INSIDE IT."** |
+
+Output:
+
+- `video_out/slam_linkedin_landscape.mp4` — **this is the LinkedIn upload**
+- `video_out/slam_linkedin_landscape_vertical.mp4` — optional 9:16 cut
+- `assets/visual-slam-poster.jpg` — thumbnail
+
+### LinkedIn caption
+
+```text
+Day 44 of building an AI robot.
+
+Nobody gave this robot a map. It built one anyway.
+
+That is SLAM: Simultaneous Localization and Mapping. The robot estimates
+where it is (localization) while it draws the room (mapping). Do one
+without the other and the map smears — I showed that failure as ASCII
+in an earlier lesson. This clip is the camera version.
+
+What you are seeing:
+• cyan trails = the corners visual SLAM actually tracks (not "objects")
+• the right-hand panel = odometry, integrated frame by frame
+• loop closure = "I have been here before" — the correction that stops drift
+
+Clip: Mixkit #21589, free commercial licence. Overlay: OpenCV visual
+odometry on a MacBook Air, no LiDAR, no GPU, no paid API.
+
+This is the front-end of visual SLAM, not a full ORB-SLAM3 graph. Next:
+the same idea on a virtual LiDAR in Webots, then ROS 2.
+
+#Robotics #SLAM #ComputerVision #OpenCV #AI #Python #RoboticsFemme
+#WomenInSTEM #AutonomousRobots #BuildInPublic
+```
+
+Stock footage is Mixkit's free licence (commercial use allowed, attribution
+not required). Credit it anyway — it reads as an engineer, not as borrowed
+B-roll.
+
+---
+
 ## 📋 Production Checklist
 
 Before posting **any** reel:

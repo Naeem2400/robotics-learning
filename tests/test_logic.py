@@ -145,6 +145,31 @@ def test_tracker_drops_object_after_max_age():
 
 
 # ---------------------------------------------------------------------------
+# Lesson 44 - visual SLAM odometry and loop closure
+# ---------------------------------------------------------------------------
+
+def test_odometry_integrates_straight_line():
+    from visual_slam import compose_pose
+
+    x = y = theta = 0.0
+    for _ in range(10):
+        x, y, theta = compose_pose(x, y, theta, forward=1.0, yaw=0.0)
+    assert abs(x - 10.0) < 1e-9
+    assert abs(y) < 1e-9
+
+
+def test_loop_closure_needs_distance_and_recognition():
+    from visual_slam import loop_closure_triggered
+
+    # Still next to the start - a high match is just "I have not left yet".
+    assert loop_closure_triggered(1.0, 0.9) is False
+    # Travelled far but the scene is new.
+    assert loop_closure_triggered(12.0, 0.1) is False
+    # Travelled far AND recognised the start.
+    assert loop_closure_triggered(12.0, 0.4) is True
+
+
+# ---------------------------------------------------------------------------
 # Lesson 43 - stereo depth math
 # ---------------------------------------------------------------------------
 
