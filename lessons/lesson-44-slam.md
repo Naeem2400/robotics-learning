@@ -477,11 +477,13 @@ Lesson **44 / ~250**.
 
 ## 🚀 Next — Lesson 45: First SLAM Robot in Webots
 
-Theory is in place. Next we put a virtual LiDAR on a robot in Webots,
-drive it, watch the scans, and grow a map — still with no hardware.
+Open the hallway and press Run:
 
-1. Virtual robot
-2. Virtual LiDAR
-3. Drive and inspect `/scan`-style data
-4. Map generation
-5. Then ROS 2 wiring
+```bash
+open -a Webots worlds/slam_lab.wbt
+```
+
+A TurtleBot3 drives toward a wall, prints LiDAR metres, and stops at 1 m.
+That is the measurement SLAM is made of — not SLAM itself yet.
+
+[Lesson 45](lesson-45-slam-simulation.md)

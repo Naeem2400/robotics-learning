@@ -170,6 +170,41 @@ def test_loop_closure_needs_distance_and_recognition():
 
 
 # ---------------------------------------------------------------------------
+# Lesson 45 - lidar scan math (no Webots)
+# ---------------------------------------------------------------------------
+
+def test_lidar_corridor_splits_into_three_cones():
+    from lidar_scan import fake_corridor, front_left_right, should_stop
+
+    front, left, right = front_left_right(
+        fake_corridor(front=2.4, left=1.2, right=0.8)
+    )
+    assert abs(front - 2.4) < 1e-9
+    assert abs(left - 1.2) < 1e-9
+    assert abs(right - 0.8) < 1e-9
+    assert should_stop(front) is False
+    assert should_stop(1.0) is True
+    assert should_stop(0.7) is True
+
+
+def test_occupancy_sketch_marks_robot_and_hits():
+    from lidar_scan import fake_corridor, occupancy_from_scan
+
+    grid = occupancy_from_scan(fake_corridor())
+    mid = len(grid) // 2
+    assert grid[mid][mid] == "R"
+    assert any("#" in row for row in grid)
+
+
+def test_autonomous_turn_picks_the_more_open_side():
+    from lidar_scan import choose_action
+
+    assert choose_action(2.4, 1.2, 0.8) == "FORWARD"
+    assert choose_action(0.5, 2.0, 0.8) == "TURN_LEFT"
+    assert choose_action(0.5, 0.8, 2.0) == "TURN_RIGHT"
+
+
+# ---------------------------------------------------------------------------
 # Lesson 43 - stereo depth math
 # ---------------------------------------------------------------------------
 

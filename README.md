@@ -24,7 +24,7 @@
 | ✅ | 15 — Navigation | [L28 — Path Planning](lessons/lesson-28-path-planning.md) |
 | 🔄 | 16 — Computer Vision for Robotics | [L29 — CV Fundamentals](lessons/lesson-29-computer-vision-fundamentals.md) · [L30 — OpenCV Practical](lessons/lesson-30-opencv-practical.md) · [L31 — Image Processing](lessons/lesson-31-image-processing.md) · [L32 — Face Detection](lessons/lesson-32-face-detection.md) |
 | 🔄 | 17 — AI Vision | [L36 — Tracking & Following](lessons/lesson-36-object-tracking-following.md) · [L37 — Pose Estimation](lessons/lesson-37-pose-estimation.md) · [L38 — Hand Gestures](lessons/lesson-38-hand-gestures.md) · [L39 — OCR](lessons/lesson-39-ocr.md) · [L40 — QR & Barcodes](lessons/lesson-40-qr-barcodes.md) · [L41 — Segmentation](lessons/lesson-41-segmentation.md) · [L42 — Multi-Object Tracking](lessons/lesson-42-multi-object-tracking.md) · [L43 — Depth Estimation](lessons/lesson-43-depth-estimation.md) |
-| 🔄 | 18 — SLAM & Autonomous Navigation | [L44 — SLAM](lessons/lesson-44-slam.md) · [notebook](lesson_44_slam.ipynb) · [PDF](docs/lesson-44-slam.pdf) |
+| 🔄 | 18 — SLAM & Autonomous Navigation | [L44 — SLAM](lessons/lesson-44-slam.md) · [L45 — First SLAM Simulation](lessons/lesson-45-slam-simulation.md) · [L46 — First Autonomous Robot](lessons/lesson-46-first-autonomous-robot.md) |
 
 ## Visual SLAM
 
@@ -34,6 +34,17 @@
 right-hand panel is the map growing as it walks the corridor. No LiDAR, no GPS,
 no GPU. Run it yourself with [`visual_slam.py`](visual_slam.py). Full 1920×1080
 recording: [`assets/visual-slam-linkedin.mp4`](assets/visual-slam-linkedin.mp4).*
+
+---
+
+## First Autonomous Robot (Webots)
+
+![TurtleBot3 driving, detecting a wall, and turning in Webots](assets/slam-avoid-demo.gif)
+
+*A TurtleBot3 in Webots reads a virtual LiDAR, stops at 1 m, and turns toward
+the more open side — Sense → Think → Act, no remote. Open
+[`worlds/slam_avoid.wbt`](worlds/slam_avoid.wbt) and press Run. Full recording:
+[`assets/slam-avoid.mp4`](assets/slam-avoid.mp4).*
 
 ---
 
@@ -441,6 +452,9 @@ a `LaserScan` message. The thinking stays identical; only the plumbing grows.
 | [`depth_estimation.py`](depth_estimation.py) | Stereo depth: distance from two views, no sensor (Lesson 43) |
 | [`visual_slam.py`](visual_slam.py) | Visual odometry overlay on a free HD clip, LinkedIn export (Lesson 44) |
 | [`lesson_44_slam.ipynb`](lesson_44_slam.ipynb) | SLAM notebook: odometry, drift, loop closure, then the video |
+| [`lidar_scan.py`](lidar_scan.py) | LiDAR scan maths: stop-at-1 m, polar print, occupancy snapshot (Lesson 45) |
+| [`lesson_45_slam_sim.ipynb`](lesson_45_slam_sim.ipynb) | Webots SLAM-lab notebook: world vs controller vs one scan |
+| [`lesson_46_autonomous_robot.ipynb`](lesson_46_autonomous_robot.ipynb) | Autonomous turn-toward-open-side (Lesson 46) |
 | [`lessons/`](lessons/) | Lesson notes for every lesson except 33–35 |
 | [`docs/`](docs/) | Portfolio and content strategy |
 | [`assets/`](assets/) | Demo images and GIFs |

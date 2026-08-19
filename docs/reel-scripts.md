@@ -250,6 +250,83 @@ B-roll.
 
 ---
 
+## 🎥 Reel 8 — "I Built My First Robot Without Buying a Robot"
+
+**Length:** ~25 seconds · **Source:** Webots `worlds/slam_lab.wbt`
+
+Screen-record the 3D view **and** the console (⌘⇧5). The numbers are the hook.
+
+| Time | Shot | On-screen text |
+|---|---|---|
+| 0–3s | MacBook, then Webots window | **"No robot. Just a laptop."** |
+| 3–8s | TurtleBot driving down the hallway | **"A virtual LiDAR. 360 beams."** |
+| 8–16s | Console: `FRONT 4.0 m` … `2.0 m` … `1.0 m` | **"The wall is getting closer."** |
+| 16–22s | Robot stops; occupancy sketch prints | **"STOP. One metre."** |
+| 22–25s | — | **"That is the measurement SLAM is made of."** |
+
+### Caption
+
+```text
+Day 45 of building an AI robot.
+
+I did not buy a LiDAR this week. I simulated one.
+
+Webots + a TurtleBot3 + a virtual LDS-01. The robot drives down a
+hallway, the ranges fall 5 m → 1 m, and a one-line rule stops it:
+
+    if front < 1.0: stop
+
+That is not SLAM. SLAM is many of those scans, from many poses, glued
+together with odometry. Today I wanted the scan itself to be real.
+
+Before expensive hardware: simulation. Same architecture as the real
+robot — sensor, decision, motor — only the sensor is virtual.
+
+#Robotics #Webots #SLAM #LiDAR #Simulation #Python #RoboticsFemme
+#WomenInSTEM #BuildInPublic
+```
+
+---
+
+## 🎥 Reel 9 — "My Robot Makes Its Own Decisions"
+
+**Length:** ~25 seconds · **Source:** Webots `worlds/slam_avoid.wbt`
+
+```bash
+open -a Webots worlds/slam_avoid.wbt
+```
+
+Play, then screen-record 3D view + console.
+
+| Time | Shot | On-screen text |
+|---|---|---|
+| 0–3s | Robot driving | **"Nobody is holding a remote."** |
+| 3–10s | Approaches a box | **"LiDAR: wall."** |
+| 10–18s | Spins, console says `TURNING toward LEFT` | **"It chose the open side."** |
+| 18–25s | Drives on | **"Sense. Think. Act."** |
+
+### Caption
+
+```text
+Day 46 of building an AI robot.
+
+This is not remote control. The robot reads a virtual LiDAR, decides
+the front is blocked, and turns toward whichever side is more open.
+
+if front <= 1.0:
+    turn toward max(left, right)
+else:
+    go forward
+
+Rule-based autonomy — not neural nets. Same loop a warehouse robot
+runs, minus the expensive hardware. Webots on a MacBook Air.
+
+#Robotics #Webots #AutonomousRobots #Python #LiDAR #RoboticsFemme
+#WomenInSTEM #BuildInPublic
+```
+
+---
+
 ## 📋 Production Checklist
 
 Before posting **any** reel:
